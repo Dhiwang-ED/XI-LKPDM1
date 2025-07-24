@@ -644,6 +644,21 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer1', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer1', 'x³')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x³</button>
+                                    <button onclick="insertSymbol('answer1', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                                    <button onclick="insertSymbol('answer1', '∛')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∛</button>
+                                    <button onclick="insertSymbol('answer1', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">a/b</button>
+                                    <button onclick="insertSymbol('answer1', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer1', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                                    <button onclick="insertSymbol('answer1', '≥')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≥</button>
+                                    <button onclick="insertSymbol('answer1', '≤')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≤</button>
+                                    <button onclick="insertSymbol('answer1', '∞')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∞</button>
+                                </div>
+                            </div>
                             <textarea id="answer1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(1)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -660,6 +675,19 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer2', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer2', 'x³')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x³</button>
+                                    <button onclick="insertSymbol('answer2', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                                    <button onclick="insertSymbol('answer2', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer2', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer2', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer2', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                    <button onclick="insertSymbol('answer2', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                </div>
+                            </div>
                             <textarea id="answer2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(2)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -676,6 +704,17 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer3', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer3', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer3', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer3', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer3', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer3', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(3)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -692,6 +731,17 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer4', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer4', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer4', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer4', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer4', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer4', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(4)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -708,6 +758,18 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer5', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer5', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer5', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer5', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer5', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer5', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer5', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(5)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -724,6 +786,25 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer6', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                                        <div class="flex flex-col items-center leading-none">
+                                            <span style="font-size: 8px; line-height: 1;">a</span>
+                                            <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                            <span style="font-size: 8px; line-height: 1;">b</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="insertSymbol('answer6', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer6', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                                    <button onclick="insertSymbol('answer6', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer6', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer6', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer6', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer6', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(6)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -740,6 +821,21 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer7', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                                    <button onclick="insertSymbol('answer7', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer7', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer7', '≥')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≥</button>
+                                    <button onclick="insertSymbol('answer7', '≤')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≤</button>
+                                    <button onclick="insertSymbol('answer7', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer7', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer7', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer7', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer7', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer7" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(7)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -756,6 +852,18 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer8', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer8', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer8', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer8', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer8', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer8', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer8', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer8" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(8)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -772,6 +880,18 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer9', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer9', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer9', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer9', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer9', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer9', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer9', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer9" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(9)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -788,6 +908,25 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer10', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                                        <div class="flex flex-col items-center leading-none">
+                                            <span style="font-size: 8px; line-height: 1;">a</span>
+                                            <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                            <span style="font-size: 8px; line-height: 1;">b</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="insertSymbol('answer10', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer10', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                                    <button onclick="insertSymbol('answer10', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer10', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer10', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer10', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer10', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer10" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(10)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -804,6 +943,21 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer11', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer11', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                                    <button onclick="insertSymbol('answer11', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer11', '≥')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≥</button>
+                                    <button onclick="insertSymbol('answer11', '≤')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≤</button>
+                                    <button onclick="insertSymbol('answer11', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer11', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer11', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer11', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer11', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer11" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(11)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -820,6 +974,25 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer12', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                                        <div class="flex flex-col items-center leading-none">
+                                            <span style="font-size: 8px; line-height: 1;">a</span>
+                                            <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                            <span style="font-size: 8px; line-height: 1;">b</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="insertSymbol('answer12', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer12', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                                    <button onclick="insertSymbol('answer12', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer12', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer12', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer12', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer12', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer12" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(12)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -836,6 +1009,19 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer13', 'x³')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x³</button>
+                                    <button onclick="insertSymbol('answer13', '∛')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∛</button>
+                                    <button onclick="insertSymbol('answer13', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer13', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer13', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer13', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer13', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer13', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer13" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah pembuktian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(13)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -852,6 +1038,24 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer14', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                                        <div class="flex flex-col items-center leading-none">
+                                            <span style="font-size: 8px; line-height: 1;">a</span>
+                                            <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                            <span style="font-size: 8px; line-height: 1;">b</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="insertSymbol('answer14', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer14', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer14', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer14', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer14', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer14', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer14" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="6" placeholder="Tuliskan analisis dan syarat-syarat..."></textarea>
                         </div>
                         <button onclick="checkAnswer(14)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -868,6 +1072,28 @@
                     
                     <div class="space-y-3">
                         <div class="bg-white p-3 rounded border">
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <button onclick="insertSymbol('answer15', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                                        <div class="flex flex-col items-center leading-none">
+                                            <span style="font-size: 8px; line-height: 1;">a</span>
+                                            <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                            <span style="font-size: 8px; line-height: 1;">b</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="insertSymbol('answer15', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                                    <button onclick="insertSymbol('answer15', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                                    <button onclick="insertSymbol('answer15', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                                    <button onclick="insertSymbol('answer15', '≥')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≥</button>
+                                    <button onclick="insertSymbol('answer15', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                                    <button onclick="insertSymbol('answer15', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                                    <button onclick="insertSymbol('answer15', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                                    <button onclick="insertSymbol('answer15', '=')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">=</button>
+                                    <button onclick="insertSymbol('answer15', '+')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">+</button>
+                                    <button onclick="insertSymbol('answer15', '-')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">-</button>
+                                </div>
+                            </div>
                             <textarea id="answer15" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="6" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
                         </div>
                         <button onclick="checkAnswer(15)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
@@ -1284,10 +1510,66 @@
             });
         }
 
+        // Math symbol helper function
+        function insertSymbol(textareaId, symbol) {
+            const textarea = document.getElementById(textareaId);
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            
+            let insertText = symbol;
+            let cursorOffset = symbol.length;
+            
+            // Special handling for fraction
+            if (symbol === '/') {
+                insertText = '1/x';
+                cursorOffset = 1; // Position cursor after '1'
+            }
+            
+            // Insert symbol at cursor position
+            textarea.value = text.substring(0, start) + insertText + text.substring(end);
+            
+            // Move cursor to appropriate position
+            textarea.selectionStart = textarea.selectionEnd = start + cursorOffset;
+            textarea.focus();
+        }
+
+        // Generate math helper buttons HTML
+        function generateMathHelper(answerId) {
+            return `
+                <div class="mb-2">
+                    <p class="text-sm font-medium text-gray-700 mb-2">🔧 Bantuan Penulisan Matematika:</p>
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        <button onclick="insertSymbol('${answerId}', 'x²')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x²</button>
+                        <button onclick="insertSymbol('${answerId}', 'x³')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">x³</button>
+                        <button onclick="insertSymbol('${answerId}', '√')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">√</button>
+                        <button onclick="insertSymbol('${answerId}', '∛')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∛</button>
+                        <button onclick="insertSymbol('${answerId}', '/')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border flex items-center justify-center" style="min-width: 32px; height: 28px;">
+                            <div class="flex flex-col items-center leading-none">
+                                <span style="font-size: 8px; line-height: 1;">a</span>
+                                <div style="width: 12px; height: 1px; background-color: currentColor; margin: 1px 0;"></div>
+                                <span style="font-size: 8px; line-height: 1;">b</span>
+                            </div>
+                        </button>
+                        <button onclick="insertSymbol('${answerId}', '∘')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∘</button>
+                        <button onclick="insertSymbol('${answerId}', '≠')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≠</button>
+                        <button onclick="insertSymbol('${answerId}', '≥')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≥</button>
+                        <button onclick="insertSymbol('${answerId}', '≤')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">≤</button>
+                        <button onclick="insertSymbol('${answerId}', '∞')" class="px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded text-xs border">∞</button>
+                        <button onclick="insertSymbol('${answerId}', '(')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">(</button>
+                        <button onclick="insertSymbol('${answerId}', ')')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">)</button>
+                        <button onclick="insertSymbol('${answerId}', '{')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">{</button>
+                        <button onclick="insertSymbol('${answerId}', '}')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">}</button>
+                        <button onclick="insertSymbol('${answerId}', '|')" class="px-2 py-1 bg-green-100 hover:bg-green-200 rounded text-xs border">|</button>
+                    </div>
+                </div>
+            `;
+        }
+
         // Initialize
         updateProgress();
         updateNavTabs();
         updateScoreDisplay();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963f5bb3d4f43ef7',t:'MTc1MzMxNzU0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963fe62d107fe778',t:'MTc1MzMyMzIxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
