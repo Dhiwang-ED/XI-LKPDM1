@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LKPD Komposisi Fungsi - Kelas 11</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-blue-500">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">📚 LEMBAR KERJA PESERTA DIDIK (LKPD)</h1>
+            <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                <div>
+                    <p><strong>Mata Pelajaran:</strong> Matematika</p>
+                    <p><strong>Kelas:</strong> XI SMA</p>
+                    <p><strong>Topik:</strong> Komposisi Fungsi</p>
+                </div>
+                <div>
+                    <p><strong>Tujuan:</strong> Menjelaskan syarat dan aturan komposisi fungsi</p>
+                    <p><strong>Mode:</strong> Pembelajaran Mandiri</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">📊 Navigasi Pembelajaran</h3>
+                <button onclick="printLKPD()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+                    🖨️ Cetak LKPD
+                </button>
+            </div>
+            <div class="flex gap-1 mb-2 flex-wrap">
+                <button class="nav-tab bg-blue-500 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-blue-600" data-section="0" onclick="navigateToSection(0)">📚 Review</button>
+                <button class="nav-tab bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-300" data-section="1" onclick="navigateToSection(1)">🧩 Pematik</button>
+                <button class="nav-tab bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-300" data-section="2" onclick="navigateToSection(2)">📖 Materi</button>
+                <button class="nav-tab bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-300" data-section="3" onclick="navigateToSection(3)">💡 Contoh</button>
+                <button class="nav-tab bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-300" data-section="4" onclick="navigateToSection(4)">✏️ Latihan</button>
+                <button class="nav-tab bg-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-300" data-section="5" onclick="navigateToSection(5)">💬 Diskusi</button>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div id="progressBar" class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 16.67%"></div>
+            </div>
+        </div>
+
+        <!-- Section 0: Review -->
+        <div id="section0" class="section bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                🔄 Bagian 0: Review Materi Sebelumnya
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-indigo-50 p-5 rounded-lg border-l-4 border-indigo-400">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">📚 Apa yang Sudah Kita Pelajari?</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">🎯 Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-2">Relasi yang menghubungkan setiap input dengan tepat satu output</p>
+                            <p class="text-xs text-gray-600">Notasi: $f(x) = 2x + 1$</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">🏠 Domain & Range</h4>
+                            <p class="text-sm text-gray-700 mb-2">Domain: himpunan input, Range: himpunan output</p>
+                            <p class="text-xs text-gray-600">Contoh: $D_f = \{1,2,3\}$, $R_f = \{3,5,7\}$</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">🔢 Nilai Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-2">Hasil substitusi nilai ke dalam fungsi</p>
+                            <p class="text-xs text-gray-600">Jika $f(x) = x^2$, maka $f(3) = 9$</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">📈 Operasi Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-2">Penjumlahan, pengurangan, perkalian, pembagian</p>
+                            <p class="text-xs text-gray-600">$(f+g)(x) = f(x) + g(x)$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-5 rounded-lg border-l-4 border-green-400">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">🌟 Ilustrasi Kehidupan Sehari-hari</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border border-green-200">
+                            <h4 class="font-semibold text-green-600 mb-2">🏭 Pabrik Produksi</h4>
+                            <p class="text-sm text-gray-700 mb-2">Proses produksi berlangsung bertahap:</p>
+                            <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                                <li><strong>Tahap 1:</strong> Bahan mentah → Bahan setengah jadi</li>
+                                <li><strong>Tahap 2:</strong> Bahan setengah jadi → Produk jadi</li>
+                                <li><strong>Hasil:</strong> Bahan mentah → Produk jadi (melalui 2 tahap)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border border-green-200">
+                            <h4 class="font-semibold text-green-600 mb-2">🍳 Memasak Nasi Goreng</h4>
+                            <p class="text-sm text-gray-700 mb-2">Proses memasak berlangsung berurutan:</p>
+                            <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                                <li><strong>Fungsi 1:</strong> Beras → Nasi (proses memasak)</li>
+                                <li><strong>Fungsi 2:</strong> Nasi → Nasi Goreng (proses menggoreng)</li>
+                                <li><strong>Komposisi:</strong> Beras → Nasi Goreng (gabungan proses)</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-green-200">
+                            <h4 class="font-semibold text-green-600 mb-2">🎓 Sistem Pendidikan</h4>
+                            <p class="text-sm text-gray-700 mb-2">Jenjang pendidikan berurutan:</p>
+                            <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                                <li><strong>Fungsi 1:</strong> Siswa SMP → Siswa SMA</li>
+                                <li><strong>Fungsi 2:</strong> Siswa SMA → Mahasiswa</li>
+                                <li><strong>Komposisi:</strong> Siswa SMP → Mahasiswa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-yellow-700 mb-3">🤔 Pertanyaan Refleksi</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg border">
+                            <p class="text-sm font-medium text-gray-800 mb-2">1. Dari ilustrasi di atas, apa yang terjadi jika urutan proses dibalik?</p>
+                            <textarea id="reflection_review1" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-sm" rows="2" placeholder="Contoh: Jika urutan dibalik, hasil akan berbeda..."></textarea>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border">
+                            <p class="text-sm font-medium text-gray-800 mb-2">2. Mengapa output dari proses pertama harus sesuai dengan input proses kedua?</p>
+                            <textarea id="reflection_review2" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-sm" rows="2" placeholder="Berikan alasan kamu..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Section 1: Soal Pematik -->
+        <div id="section1" class="section bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                🧩 Bagian 1: Soal Pematik
+            </h2>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg mb-6">
+                <p class="text-blue-800 font-medium">💡 <strong>Tujuan:</strong> Memahami konsep dasar komposisi fungsi melalui situasi nyata.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Pematik 1 -->
+                <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3">🎯 Situasi 1: Konversi Mata Uang</h3>
+                    <div class="bg-white p-4 rounded-lg border mb-4">
+                        <p class="text-gray-700 mb-3">Seorang turis memiliki uang dalam 3 mata uang:</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 mb-3">
+                            <li>Fungsi $f$: Rupiah → Dollar (1 Dollar = Rp 15.000)</li>
+                            <li>Fungsi $g$: Dollar → Euro (1 Euro = 1,2 Dollar)</li>
+                            <li>Jadi $f(x) = \frac{x}{15000}$ dan $g(x) = \frac{x}{1.2}$</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">a) Jika ada Rp 180.000, berapa Dollar yang didapat?</p>
+                            <input type="text" id="pematik1a" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="f(180000) = ...">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">b) Jika punya 10 Dollar, berapa Euro yang didapat?</p>
+                            <input type="text" id="pematik1b" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="g(10) = ...">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">c) Bagaimana cara langsung mengubah Rupiah ke Euro? Tuliskan rumusnya!</p>
+                            <textarea id="pematik1c" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-purple-500 focus:border-transparent" rows="2" placeholder="Rumus langsung: ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pematik 2 -->
+                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">🎯 Situasi 2: Sistem Poin Reward</h3>
+                    <div class="bg-white p-4 rounded-lg border mb-4">
+                        <p class="text-gray-700 mb-3">Aplikasi e-commerce memiliki sistem reward:</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 mb-3">
+                            <li>Fungsi $h$: Pembelian (Rp) → Poin ($h(x) = \frac{x}{1000}$)</li>
+                            <li>Fungsi $k$: Poin → Cashback ($k(x) = x \times 500$)</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">a) Jika berbelanja Rp 50.000, berapa poin yang didapat?</p>
+                            <input type="text" id="pematik2a" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="h(50000) = ...">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">b) Jika punya 100 poin, berapa cashback yang didapat?</p>
+                            <input type="text" id="pematik2b" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="k(100) = ...">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">c) Bagaimana rumus langsung dari pembelian ke cashback?</p>
+                            <textarea id="pematik2c" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" rows="2" placeholder="Rumus: (k ∘ h)(x) = ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pematik 3 -->
+                <div class="bg-orange-50 p-5 rounded-lg border border-orange-200">
+                    <h3 class="text-lg font-semibold text-orange-800 mb-3">🎯 Situasi 3: Transformasi Suhu</h3>
+                    <div class="bg-white p-4 rounded-lg border mb-4">
+                        <p class="text-gray-700 mb-3">Konversi suhu bertahap:</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Fungsi $p$: Celsius → Fahrenheit ($p(x) = \frac{9x}{5} + 32$)</li>
+                            <li>Fungsi $q$: Fahrenheit → Kelvin ($q(x) = \frac{5(x-32)}{9} + 273$)</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">a) Ubah 25°C ke Fahrenheit!</p>
+                            <input type="text" id="pematik3a" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="p(25) = ...">
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">b) Apakah ada cara langsung mengubah Celsius ke Kelvin?</p>
+                            <textarea id="pematik3b" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-500 focus:border-transparent" rows="2" placeholder="Ya/Tidak, karena..."></textarea>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <p class="font-medium text-gray-800 mb-2">c) Apa syarat agar dua fungsi bisa digabungkan?</p>
+                            <textarea id="pematik3c" class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange-500 focus:border-transparent" rows="2" placeholder="Syarat: ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">🤔 Refleksi Pematik</h3>
+                    <div class="bg-white p-3 rounded border">
+                        <p class="font-medium text-gray-800 mb-2">Dari ketiga situasi di atas, apa pola yang kamu temukan tentang penggabungan fungsi?</p>
+                        <textarea id="pematik_reflection" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Pola yang saya temukan: ..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Section 2: Materi -->
+        <div id="section2" class="section bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                📖 Bagian 2: Materi Operasi dan Komposisi Fungsi
+            </h2>
+            
+            <div class="space-y-6">
+                <!-- Operasi Fungsi -->
+                <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">🔢 Operasi Fungsi (Review)</h3>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        Sebelum mempelajari komposisi, mari kita ingat kembali operasi dasar pada fungsi:
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-3 rounded border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">1. Penjumlahan Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-1">$(f + g)(x) = f(x) + g(x)$</p>
+                            <p class="text-xs text-gray-600">Contoh: Jika $f(x) = 2x$ dan $g(x) = x + 1$</p>
+                            <p class="text-xs text-gray-600">Maka $(f + g)(x) = 2x + x + 1 = 3x + 1$</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">2. Pengurangan Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-1">$(f - g)(x) = f(x) - g(x)$</p>
+                            <p class="text-xs text-gray-600">Contoh: $(f - g)(x) = 2x - (x + 1) = x - 1$</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">3. Perkalian Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-1">$(f \cdot g)(x) = f(x) \cdot g(x)$</p>
+                            <p class="text-xs text-gray-600">Contoh: $(f \cdot g)(x) = 2x \cdot (x + 1) = 2x^2 + 2x$</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <h4 class="font-semibold text-indigo-600 mb-2">4. Pembagian Fungsi</h4>
+                            <p class="text-sm text-gray-700 mb-1">$\left(\frac{f}{g}\right)(x) = \frac{f(x)}{g(x)}$, $g(x) \neq 0$</p>
+                            <p class="text-xs text-gray-600">Contoh: $\left(\frac{f}{g}\right)(x) = \frac{2x}{x + 1}$, $x \neq -1$</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-100 p-3 rounded border border-yellow-300">
+                        <p class="text-yellow-800 text-sm"><strong>💡 Perbedaan Penting:</strong></p>
+                        <ul class="text-yellow-700 text-xs list-disc list-inside mt-1 space-y-1">
+                            <li><strong>Operasi Fungsi:</strong> Menggabungkan nilai output dua fungsi</li>
+                            <li><strong>Komposisi Fungsi:</strong> Menggunakan output satu fungsi sebagai input fungsi lain</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">🎯 Pengertian Komposisi Fungsi</h3>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        <strong>Komposisi Fungsi</strong> adalah operasi yang menggabungkan dua fungsi atau lebih 
+                        menjadi satu fungsi baru dengan cara menerapkan satu fungsi pada hasil fungsi lainnya.
+                    </p>
+                    
+                    <div class="bg-white p-4 rounded border mb-3">
+                        <p class="text-sm text-gray-600 mb-2"><strong>Notasi:</strong></p>
+                        <p class="text-center text-lg">$(g \circ f)(x) = g(f(x))$</p>
+                        <p class="text-xs text-gray-500 text-center mt-1">Dibaca: "g komposisi f dari x"</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded border">
+                        <h4 class="font-semibold text-blue-600 mb-2">🔄 Ilustrasi Proses:</h4>
+                        <div class="flex items-center justify-center space-x-4 text-sm">
+                            <div class="bg-green-100 px-3 py-2 rounded border">Input $x$</div>
+                            <span>→</span>
+                            <div class="bg-blue-100 px-3 py-2 rounded border">Fungsi $f$</div>
+                            <span>→</span>
+                            <div class="bg-yellow-100 px-3 py-2 rounded border">$f(x)$</div>
+                            <span>→</span>
+                            <div class="bg-purple-100 px-3 py-2 rounded border">Fungsi $g$</div>
+                            <span>→</span>
+                            <div class="bg-red-100 px-3 py-2 rounded border">$g(f(x))$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                    <h3 class="text-xl font-semibold text-red-700 mb-3">⚠️ Syarat Komposisi Fungsi</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="font-semibold text-red-600 mb-3">1. Syarat Domain (Syarat Utama)</h4>
+                            <p class="text-sm text-gray-700 mb-2">Range fungsi pertama harus subset dari domain fungsi kedua</p>
+                            <p class="text-center text-lg mb-3">$R_f \subseteq D_g$ untuk $(g \circ f)(x)$</p>
+                            
+                            <div class="bg-gray-50 p-3 rounded mb-3">
+                                <h5 class="font-semibold text-gray-700 mb-2">🔍 Mengapa Syarat Ini Penting?</h5>
+                                <p class="text-xs text-gray-600 mb-2">Karena output dari $f(x)$ akan menjadi input untuk $g(x)$. Jika output $f(x)$ tidak ada dalam domain $g(x)$, maka $g(f(x))$ tidak terdefinisi!</p>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-semibold text-blue-700 mb-2">📋 Cara Mengecek Syarat Domain:</h5>
+                                <ol class="text-xs text-blue-600 list-decimal list-inside space-y-1">
+                                    <li><strong>Langkah 1:</strong> Tentukan domain fungsi $f(x)$ → $D_f$</li>
+                                    <li><strong>Langkah 2:</strong> Tentukan range fungsi $f(x)$ → $R_f$</li>
+                                    <li><strong>Langkah 3:</strong> Tentukan domain fungsi $g(x)$ → $D_g$</li>
+                                    <li><strong>Langkah 4:</strong> Periksa apakah $R_f \subseteq D_g$</li>
+                                    <li><strong>Langkah 5:</strong> Jika ya, komposisi dapat dilakukan</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-3 rounded mt-3">
+                                <h5 class="font-semibold text-yellow-700 mb-2">💡 Contoh Pengecekan:</h5>
+                                <p class="text-xs text-yellow-600 mb-1">$f(x) = x + 1$ dengan $D_f = \mathbb{R}$ dan $R_f = \mathbb{R}$</p>
+                                <p class="text-xs text-yellow-600 mb-1">$g(x) = \sqrt{x}$ dengan $D_g = [0, +\infty)$</p>
+                                <p class="text-xs text-yellow-600 mb-1">Karena $R_f = \mathbb{R}$ tidak subset dari $D_g = [0, +\infty)$</p>
+                                <p class="text-xs text-yellow-600 font-semibold">Maka $(g \circ f)(x)$ tidak dapat didefinisikan untuk semua $x$!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded border">
+                            <h4 class="font-semibold text-red-600 mb-2">2. Syarat Urutan</h4>
+                            <p class="text-sm text-gray-700 mb-2">Urutan komposisi sangat penting dan tidak komutatif</p>
+                            <p class="text-center text-lg mb-2">$(g \circ f)(x) \neq (f \circ g)(x)$ (umumnya)</p>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h5 class="font-semibold text-gray-700 mb-2">🔄 Perbedaan Urutan:</h5>
+                                <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                                    <li>$(g \circ f)(x) = g(f(x))$ → Fungsi $f$ dijalankan dulu, lalu $g$</li>
+                                    <li>$(f \circ g)(x) = f(g(x))$ → Fungsi $g$ dijalankan dulu, lalu $f$</li>
+                                    <li>Hasil akhir biasanya berbeda karena urutan operasi berbeda</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">📋 Aturan Komposisi Fungsi</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="font-semibold text-green-600 mb-3">Aturan 1: Substitusi (Aturan Dasar)</h4>
+                            <p class="text-center text-lg mb-3">$(g \circ f)(x) = g(f(x))$</p>
+                            
+                            <div class="bg-gray-50 p-3 rounded mb-3">
+                                <h5 class="font-semibold text-gray-700 mb-2">🔄 Cara Kerja Substitusi:</h5>
+                                <ol class="text-xs text-gray-600 list-decimal list-inside space-y-1">
+                                    <li>Hitung nilai $f(x)$ terlebih dahulu</li>
+                                    <li>Gunakan hasil $f(x)$ sebagai input untuk fungsi $g$</li>
+                                    <li>Hitung $g(f(x))$ untuk mendapat hasil akhir</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-semibold text-blue-700 mb-2">💡 Contoh Detail:</h5>
+                                <p class="text-xs text-blue-600 mb-1">Jika $f(x) = 2x + 1$ dan $g(x) = x^2$</p>
+                                <p class="text-xs text-blue-600 mb-1">Maka $(g \circ f)(x) = g(f(x)) = g(2x + 1) = (2x + 1)^2$</p>
+                                <p class="text-xs text-blue-600 font-semibold">Hasil: $(g \circ f)(x) = 4x^2 + 4x + 1$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded border">
+                                <h4 class="font-semibold text-green-600 mb-2">Aturan 2: Asosiatif</h4>
+                                <p class="text-sm text-gray-700 mb-2">$(h \circ g) \circ f = h \circ (g \circ f)$</p>
+                                
+                                <div class="bg-gray-50 p-2 rounded mt-2">
+                                    <p class="text-xs text-gray-600 mb-1"><strong>Artinya:</strong> Dalam komposisi tiga fungsi, cara pengelompokan tidak mengubah hasil</p>
+                                    <p class="text-xs text-gray-600">Contoh: $(h \circ g) \circ f = h \circ (g \circ f)$</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-3 rounded border">
+                                <h4 class="font-semibold text-green-600 mb-2">Aturan 3: Identitas</h4>
+                                <p class="text-sm text-gray-700 mb-2">$(I \circ f)(x) = f(x)$ dan $(f \circ I)(x) = f(x)$</p>
+                                
+                                <div class="bg-gray-50 p-2 rounded mt-2">
+                                    <p class="text-xs text-gray-600 mb-1"><strong>Fungsi Identitas:</strong> $I(x) = x$</p>
+                                    <p class="text-xs text-gray-600">Komposisi dengan fungsi identitas tidak mengubah fungsi asli</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="font-semibold text-green-600 mb-3">Aturan 4: Penentuan Domain Komposisi</h4>
+                            <p class="text-center text-lg mb-3">$D_{g \circ f} = \{x \in D_f | f(x) \in D_g\}$</p>
+                            
+                            <div class="bg-gray-50 p-3 rounded mb-3">
+                                <h5 class="font-semibold text-gray-700 mb-2">📝 Penjelasan Formula:</h5>
+                                <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                                    <li>$x$ harus ada dalam domain $f$ (syarat pertama)</li>
+                                    <li>$f(x)$ harus ada dalam domain $g$ (syarat kedua)</li>
+                                    <li>Kedua syarat harus dipenuhi bersamaan</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-3 rounded">
+                                <h5 class="font-semibold text-yellow-700 mb-2">⚠️ Penting Diingat:</h5>
+                                <p class="text-xs text-yellow-600">Domain komposisi bisa lebih kecil dari domain fungsi asli karena ada syarat tambahan!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="font-semibold text-green-600 mb-3">Aturan 5: Sifat Non-Komutatif</h4>
+                            <p class="text-center text-lg mb-3">$(g \circ f)(x) \neq (f \circ g)(x)$ (umumnya)</p>
+                            
+                            <div class="bg-red-50 p-3 rounded">
+                                <h5 class="font-semibold text-red-700 mb-2">🚫 Mengapa Tidak Komutatif?</h5>
+                                <p class="text-xs text-red-600 mb-2">Karena urutan operasi berbeda:</p>
+                                <ul class="text-xs text-red-600 list-disc list-inside space-y-1">
+                                    <li>$(g \circ f)(x)$: Jalankan $f$ dulu, lalu $g$</li>
+                                    <li>$(f \circ g)(x)$: Jalankan $g$ dulu, lalu $f$</li>
+                                    <li>Urutan berbeda → Hasil berbeda</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-3">🔄 Langkah-langkah Menentukan Komposisi</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                            <p class="text-gray-700">Periksa syarat domain: $R_f \subseteq D_g$</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                            <p class="text-gray-700">Substitusi $f(x)$ ke dalam fungsi $g$</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                            <p class="text-gray-700">Sederhanakan hasil substitusi</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                            <p class="text-gray-700">Tentukan domain komposisi fungsi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-yellow-700 mb-2">💡 Catatan Penting:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Komposisi fungsi tidak komutatif: $(g \circ f) \neq (f \circ g)$</li>
+                        <li>Perhatikan urutan penulisan: $(g \circ f)(x)$ berarti $g(f(x))$</li>
+                        <li>Domain komposisi bisa lebih kecil dari domain fungsi asli</li>
+                        <li>Selalu periksa syarat domain sebelum menghitung</li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Section 3: Contoh Soal -->
+        <div id="section3" class="section bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                💡 Bagian 3: Contoh Soal dan Pembahasan
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-indigo-50 p-5 rounded-lg border border-indigo-200">
+                    <h3 class="text-lg font-semibold text-indigo-800 mb-3">📝 Contoh 1: Komposisi Fungsi Sederhana</h3>
+                    <p class="mb-3"><strong>Diketahui:</strong> $f(x) = 2x + 1$ dan $g(x) = x^2 - 3$</p>
+                    <p class="mb-3"><strong>Tentukan:</strong> $(g \circ f)(x)$ dan $(f \circ g)(x)$</p>
+                    
+                    <div class="bg-white p-4 rounded border mt-3">
+                        <p class="font-semibold text-green-700 mb-2">💡 Pembahasan:</p>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <p class="font-semibold text-indigo-600">Mencari $(g \circ f)(x) = g(f(x))$:</p>
+                                <p>• $f(x) = 2x + 1$</p>
+                                <p>• $g(f(x)) = g(2x + 1) = (2x + 1)^2 - 3$</p>
+                                <p>• $= 4x^2 + 4x + 1 - 3 = 4x^2 + 4x - 2$</p>
+                                <p class="font-semibold text-indigo-700">Jadi $(g \circ f)(x) = 4x^2 + 4x - 2$</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-indigo-600">Mencari $(f \circ g)(x) = f(g(x))$:</p>
+                                <p>• $g(x) = x^2 - 3$</p>
+                                <p>• $f(g(x)) = f(x^2 - 3) = 2(x^2 - 3) + 1$</p>
+                                <p>• $= 2x^2 - 6 + 1 = 2x^2 - 5$</p>
+                                <p class="font-semibold text-indigo-700">Jadi $(f \circ g)(x) = 2x^2 - 5$</p>
+                            </div>
+                            <div class="bg-yellow-100 p-2 rounded">
+                                <p class="font-semibold text-yellow-800">Kesimpulan: $(g \circ f)(x) \neq (f \circ g)(x)$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">📝 Contoh 2: Menentukan Domain Komposisi</h3>
+                    <p class="mb-3"><strong>Diketahui:</strong> $f(x) = \sqrt{x - 1}$ dan $g(x) = \frac{2}{x + 3}$</p>
+                    <p class="mb-3"><strong>Tentukan:</strong> $(g \circ f)(x)$ dan domainnya!</p>
+                    
+                    <div class="bg-white p-4 rounded border mt-3">
+                        <p class="font-semibold text-green-700 mb-2">💡 Pembahasan:</p>
+                        <div class="space-y-4 text-sm">
+                            <div class="bg-blue-50 p-3 rounded">
+                                <p class="font-semibold text-blue-600 mb-2">Langkah 1: Tentukan domain masing-masing fungsi</p>
+                                
+                                <div class="space-y-2">
+                                    <div class="bg-white p-2 rounded border">
+                                        <p class="font-medium text-blue-700">Domain $f(x) = \sqrt{x - 1}$:</p>
+                                        <p class="text-xs text-blue-600 mb-1"><strong>Mengapa $x - 1 \geq 0$?</strong></p>
+                                        <p class="text-xs text-blue-600 mb-1">Karena akar kuadrat hanya terdefinisi untuk bilangan non-negatif</p>
+                                        <p class="text-xs text-blue-600 mb-1">$x - 1 \geq 0 \Rightarrow x \geq 1$</p>
+                                        <p class="font-semibold text-blue-700">Jadi $D_f = [1, +\infty)$</p>
+                                    </div>
+                                    
+                                    <div class="bg-white p-2 rounded border">
+                                        <p class="font-medium text-blue-700">Domain $g(x) = \frac{2}{x + 3}$:</p>
+                                        <p class="text-xs text-blue-600 mb-1"><strong>Mengapa $x + 3 \neq 0$?</strong></p>
+                                        <p class="text-xs text-blue-600 mb-1">Karena pembagian dengan nol tidak terdefinisi</p>
+                                        <p class="text-xs text-blue-600 mb-1">$x + 3 \neq 0 \Rightarrow x \neq -3$</p>
+                                        <p class="font-semibold text-blue-700">Jadi $D_g = \mathbb{R} \setminus \{-3\}$</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-3 rounded">
+                                <p class="font-semibold text-yellow-600 mb-2">Langkah 2: Tentukan range fungsi $f(x)$</p>
+                                <div class="bg-white p-2 rounded border">
+                                    <p class="text-xs text-yellow-600 mb-1">Untuk $f(x) = \sqrt{x - 1}$ dengan $x \geq 1$:</p>
+                                    <p class="text-xs text-yellow-600 mb-1">• Ketika $x = 1$: $f(1) = \sqrt{1-1} = 0$</p>
+                                    <p class="text-xs text-yellow-600 mb-1">• Ketika $x \to +\infty$: $f(x) \to +\infty$</p>
+                                    <p class="font-semibold text-yellow-700">Jadi $R_f = [0, +\infty)$</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-3 rounded">
+                                <p class="font-semibold text-purple-600 mb-2">Langkah 3: Periksa syarat komposisi</p>
+                                <div class="bg-white p-2 rounded border">
+                                    <p class="text-xs text-purple-600 mb-1">Apakah $R_f \subseteq D_g$?</p>
+                                    <p class="text-xs text-purple-600 mb-1">$R_f = [0, +\infty)$ dan $D_g = \mathbb{R} \setminus \{-3\}$</p>
+                                    <p class="text-xs text-purple-600 mb-1">Karena $[0, +\infty) \subset \mathbb{R} \setminus \{-3\}$ (tidak ada nilai 0 atau positif yang sama dengan -3)</p>
+                                    <p class="font-semibold text-purple-700">✅ Syarat terpenuhi, komposisi dapat dilakukan!</p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <p class="font-semibold text-green-600">Langkah 4: Hitung $(g \circ f)(x)$</p>
+                                <p>• $(g \circ f)(x) = g(f(x)) = g(\sqrt{x - 1})$</p>
+                                <p>• $= \frac{2}{\sqrt{x - 1} + 3}$</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-semibold text-gray-600 mb-2">Langkah 5: Tentukan domain komposisi</p>
+                                <p class="text-xs text-gray-600 mb-1">Menggunakan rumus: $D_{g \circ f} = \{x \in D_f | f(x) \in D_g\}$</p>
+                                
+                                <div class="space-y-1 mt-2">
+                                    <p class="text-xs text-gray-600">• <strong>Syarat 1:</strong> $x \in D_f$ → $x \geq 1$</p>
+                                    <p class="text-xs text-gray-600">• <strong>Syarat 2:</strong> $f(x) \in D_g$ → $\sqrt{x - 1} \neq -3$</p>
+                                    <p class="text-xs text-gray-600">• Karena $\sqrt{x - 1} \geq 0$ untuk semua $x \geq 1$</p>
+                                    <p class="text-xs text-gray-600">• Dan $0 \neq -3$, maka syarat 2 selalu terpenuhi</p>
+                                </div>
+                                
+                                <p class="font-semibold text-green-700 mt-2">Jadi domain $(g \circ f)(x)$ adalah $x \geq 1$ atau $[1, +\infty)$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3">📝 Contoh 3: Nilai Komposisi Fungsi</h3>
+                    <p class="mb-3"><strong>Diketahui:</strong> $f(x) = 3x - 2$ dan $g(x) = x^2 + 1$</p>
+                    <p class="mb-3"><strong>Tentukan:</strong> $(f \circ g)(2)$ dan $(g \circ f)(1)$</p>
+                    
+                    <div class="bg-white p-4 rounded border mt-3">
+                        <p class="font-semibold text-purple-700 mb-2">💡 Pembahasan:</p>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <p class="font-semibold text-purple-600">Mencari $(f \circ g)(2)$:</p>
+                                <p>• Cara 1: Hitung $g(2)$ dulu, lalu $f(g(2))$</p>
+                                <p>• $g(2) = 2^2 + 1 = 5$</p>
+                                <p>• $f(g(2)) = f(5) = 3(5) - 2 = 13$</p>
+                                <p class="font-semibold text-purple-700">Jadi $(f \circ g)(2) = 13$</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-purple-600">Mencari $(g \circ f)(1)$:</p>
+                                <p>• Hitung $f(1)$ dulu, lalu $g(f(1))$</p>
+                                <p>• $f(1) = 3(1) - 2 = 1$</p>
+                                <p>• $g(f(1)) = g(1) = 1^2 + 1 = 2$</p>
+                                <p class="font-semibold text-purple-700">Jadi $(g \circ f)(1) = 2$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Section 4: Latihan Soal -->
+        <div id="section4" class="section bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                ✏️ Bagian 4: Latihan Soal (15 Soal)
+            </h2>
+
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg mb-6">
+                <p class="text-blue-800 font-medium">📝 <strong>Petunjuk:</strong> Kerjakan semua soal dengan teliti. Perhatikan syarat dan aturan komposisi fungsi!</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Soal 1 -->
+                <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-3">📋 Soal 1 (Mudah)</h3>
+                    <p class="mb-4">Diketahui $f(x) = x + 3$ dan $g(x) = 2x - 1$. Tentukan $(g \circ f)(x)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(1)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback1" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="bg-pink-50 p-5 rounded-lg border border-pink-200">
+                    <h3 class="text-lg font-semibold text-pink-800 mb-3">📋 Soal 2 (Mudah)</h3>
+                    <p class="mb-4">Jika $f(x) = x^2$ dan $g(x) = x - 4$, tentukan $(f \circ g)(x)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(2)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback2" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="bg-indigo-50 p-5 rounded-lg border border-indigo-200">
+                    <h3 class="text-lg font-semibold text-indigo-800 mb-3">📋 Soal 3 (Mudah)</h3>
+                    <p class="mb-4">Diketahui $f(x) = 3x + 2$ dan $g(x) = x - 1$. Hitung $(f \circ g)(5)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(3)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback3" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">📋 Soal 4 (Mudah)</h3>
+                    <p class="mb-4">Jika $f(x) = 2x$ dan $g(x) = x + 5$, tentukan $(g \circ f)(3)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(4)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback4" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 5 -->
+                <div class="bg-orange-50 p-5 rounded-lg border border-orange-200">
+                    <h3 class="text-lg font-semibold text-orange-800 mb-3">📋 Soal 5 (Sedang)</h3>
+                    <p class="mb-4">Diketahui $f(x) = x^2 + 1$ dan $g(x) = 2x - 3$. Tentukan $(f \circ g)(x)$ dan $(g \circ f)(x)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(5)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback5" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 6 -->
+                <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3">📋 Soal 6 (Sedang)</h3>
+                    <p class="mb-4">Jika $f(x) = \frac{1}{x}$ dan $g(x) = x + 2$, tentukan $(f \circ g)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(6)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback6" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 7 -->
+                <div class="bg-red-50 p-5 rounded-lg border border-red-200">
+                    <h3 class="text-lg font-semibold text-red-800 mb-3">📋 Soal 7 (Sedang)</h3>
+                    <p class="mb-4">Diketahui $f(x) = \sqrt{x}$ dan $g(x) = x^2 - 4$. Tentukan $(f \circ g)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer7" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(7)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback7" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 8 -->
+                <div class="bg-teal-50 p-5 rounded-lg border border-teal-200">
+                    <h3 class="text-lg font-semibold text-teal-800 mb-3">📋 Soal 8 (Sedang)</h3>
+                    <p class="mb-4">Jika $(f \circ g)(x) = 4x^2 + 4x + 3$ dan $g(x) = 2x + 1$, tentukan $f(x)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer8" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(8)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback8" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 9 -->
+                <div class="bg-cyan-50 p-5 rounded-lg border border-cyan-200">
+                    <h3 class="text-lg font-semibold text-cyan-800 mb-3">📋 Soal 9 (Sedang)</h3>
+                    <p class="mb-4">Diketahui $f(x) = x - 3$ dan $(g \circ f)(x) = x^2 - 6x + 8$. Tentukan $g(x)$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer9" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(9)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback9" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 10 -->
+                <div class="bg-lime-50 p-5 rounded-lg border border-lime-200">
+                    <h3 class="text-lg font-semibold text-lime-800 mb-3">📋 Soal 10 (Sulit)</h3>
+                    <p class="mb-4">Jika $f(x) = \frac{2x + 1}{x - 1}$ dan $g(x) = \frac{x}{x + 2}$, tentukan $(f \circ g)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer10" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(10)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback10" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 11 -->
+                <div class="bg-amber-50 p-5 rounded-lg border border-amber-200">
+                    <h3 class="text-lg font-semibold text-amber-800 mb-3">📋 Soal 11 (Sulit)</h3>
+                    <p class="mb-4">Diketahui $f(x) = x^2 - 2x + 3$ dan $g(x) = \sqrt{x - 1}$. Tentukan $(g \circ f)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer11" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(11)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback11" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 12 -->
+                <div class="bg-rose-50 p-5 rounded-lg border border-rose-200">
+                    <h3 class="text-lg font-semibold text-rose-800 mb-3">📋 Soal 12 (Sulit)</h3>
+                    <p class="mb-4">Jika $f(x) = \frac{1}{x + 1}$ dan $g(x) = \frac{2x - 1}{x}$, tentukan $(g \circ f)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer12" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(12)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback12" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 13 -->
+                <div class="bg-violet-50 p-5 rounded-lg border border-violet-200">
+                    <h3 class="text-lg font-semibold text-violet-800 mb-3">📋 Soal 13 (Sulit)</h3>
+                    <p class="mb-4">Diketahui $f(x) = x^3 - 1$ dan $g(x) = \sqrt[3]{x + 1}$. Buktikan bahwa $(g \circ f)(x) = x$!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer13" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="5" placeholder="Tuliskan langkah-langkah pembuktian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(13)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback13" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 14 -->
+                <div class="bg-emerald-50 p-5 rounded-lg border border-emerald-200">
+                    <h3 class="text-lg font-semibold text-emerald-800 mb-3">📋 Soal 14 (Sangat Sulit)</h3>
+                    <p class="mb-4">Jika $f(x) = \frac{ax + b}{cx + d}$ dan $g(x) = \frac{px + q}{rx + s}$, tentukan syarat agar $(f \circ g)(x) = x$ (fungsi identitas)!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer14" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="6" placeholder="Tuliskan analisis dan syarat-syarat..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(14)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback14" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Soal 15 -->
+                <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-3">📋 Soal 15 (Sangat Sulit)</h3>
+                    <p class="mb-4">Diketahui $f(x) = \frac{2x - 1}{x + 3}$, $g(x) = x^2 + 1$, dan $h(x) = \sqrt{x - 1}$. Tentukan $((f \circ g) \circ h)(x)$ dan domainnya!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border">
+                            <textarea id="answer15" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="6" placeholder="Tuliskan langkah-langkah penyelesaian..."></textarea>
+                        </div>
+                        <button onclick="checkAnswer(15)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Periksa Jawaban
+                        </button>
+                        <div id="feedback15" class="hidden p-3 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Progress Summary -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border border-blue-200">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">📊 Ringkasan Progress</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded border text-center">
+                            <p class="text-2xl font-bold text-green-600" id="correctCount">0</p>
+                            <p class="text-sm text-gray-600">Jawaban Benar</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border text-center">
+                            <p class="text-2xl font-bold text-red-600" id="incorrectCount">0</p>
+                            <p class="text-sm text-gray-600">Jawaban Salah</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border text-center">
+                            <p class="text-2xl font-bold text-blue-600" id="progressPercentage">0%</p>
+                            <p class="text-sm text-gray-600">Progress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Section 5: Diskusi -->
+        <div id="section5" class="section bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                💬 Bagian 5: Kegiatan Diskusi & Refleksi
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border border-blue-200">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">🤔 Pertanyaan Diskusi</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">1. Mengapa komposisi fungsi tidak bersifat komutatif? Berikan contoh konkret!</p>
+                            <textarea id="discussion1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-2" rows="3" placeholder="Jelaskan dengan contoh..."></textarea>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">2. Dalam situasi apa saja komposisi fungsi diterapkan dalam kehidupan sehari-hari?</p>
+                            <textarea id="discussion2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-2" rows="3" placeholder="Berikan contoh aplikasi nyata..."></textarea>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">3. Bagaimana cara menentukan domain komposisi fungsi? Mengapa domain bisa berubah?</p>
+                            <textarea id="discussion3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-2" rows="3" placeholder="Jelaskan langkah-langkah dan alasannya..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">📝 Refleksi Pembelajaran</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">Konsep mana yang paling mudah dipahami dalam komposisi fungsi?</p>
+                            <textarea id="reflection1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2" rows="2" placeholder="Contoh: Substitusi fungsi karena..."></textarea>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">Bagian mana yang masih perlu dipelajari lebih lanjut?</p>
+                            <textarea id="reflection2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2" rows="2" placeholder="Saya masih perlu berlatih..."></textarea>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-medium text-gray-800 mb-2">Bagaimana Anda akan menerapkan pengetahuan ini di masa depan?</p>
+                            <textarea id="reflection3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2" rows="2" placeholder="Rencana aplikasi..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3">🎯 Evaluasi Diri</h3>
+                    <p class="mb-3">Berikan penilaian terhadap pemahaman Anda (1-5, dengan 5 = sangat paham):</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Konsep Komposisi:</span>
+                                <div class="flex gap-1">
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="1" data-topic="concept">1</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="2" data-topic="concept">2</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="3" data-topic="concept">3</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="4" data-topic="concept">4</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="5" data-topic="concept">5</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Syarat Komposisi:</span>
+                                <div class="flex gap-1">
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="1" data-topic="syarat">1</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="2" data-topic="syarat">2</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="3" data-topic="syarat">3</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="4" data-topic="syarat">4</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="5" data-topic="syarat">5</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Menentukan Domain:</span>
+                                <div class="flex gap-1">
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="1" data-topic="domain">1</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="2" data-topic="domain">2</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="3" data-topic="domain">3</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="4" data-topic="domain">4</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="5" data-topic="domain">5</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Pemecahan Masalah:</span>
+                                <div class="flex gap-1">
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="1" data-topic="problem">1</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="2" data-topic="problem">2</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="3" data-topic="problem">3</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="4" data-topic="problem">4</button>
+                                    <button class="rating-btn w-8 h-8 rounded-full border-2 border-purple-300 hover:bg-purple-100" data-rating="5" data-topic="problem">5</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button onclick="completeLKPD()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg transition-colors font-semibold">
+                    ✓ Selesaikan LKPD
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion Message -->
+        <div id="completion" class="bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-xl shadow-lg p-8 text-center hidden">
+            <h2 class="text-3xl font-bold mb-4">🎉 Selamat!</h2>
+            <p class="text-xl mb-4">Anda telah menyelesaikan LKPD Komposisi Fungsi dengan baik!</p>
+            <div class="bg-white bg-opacity-20 rounded-lg p-4 mb-6">
+                <p class="text-lg mb-2">Hasil Latihan Soal:</p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <p class="text-2xl font-bold" id="finalCorrect">0</p>
+                        <p class="text-sm">Benar</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold" id="finalIncorrect">0</p>
+                        <p class="text-sm">Salah</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold" id="finalPercentage">0%</p>
+                        <p class="text-sm">Skor</p>
+                    </div>
+                </div>
+            </div>
+            <p class="mb-6">Anda telah memahami syarat dan aturan komposisi fungsi. Terus berlatih untuk menguasai konsep ini!</p>
+            <button onclick="resetLKPD()" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Mulai Ulang LKPD
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let answeredQuestions = new Set();
+
+        // Section navigation
+        function navigateToSection(section) {
+            // Hide current section
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            
+            // Show target section
+            document.getElementById(`section${section}`).classList.remove('hidden');
+            
+            // Update progress
+            currentSection = section;
+            updateProgress();
+            updateNavTabs();
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = `${((currentSection + 1) / 6) * 100}%`;
+        }
+
+        function updateNavTabs() {
+            const navTabs = document.querySelectorAll('.nav-tab');
+            
+            navTabs.forEach((tab, index) => {
+                if (index === currentSection) {
+                    tab.classList.remove('bg-gray-200', 'text-gray-600', 'hover:bg-gray-300');
+                    tab.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-600');
+                } else {
+                    tab.classList.remove('bg-blue-500', 'text-white', 'hover:bg-blue-600');
+                    tab.classList.add('bg-gray-200', 'text-gray-600', 'hover:bg-gray-300');
+                }
+            });
+        }
+
+        // Print function
+        function printLKPD() {
+            // Create a new window for printing
+            const printWindow = window.open('', '_blank');
+            
+            // Get the current page content
+            const content = document.documentElement.outerHTML;
+            
+            // Create print-friendly version
+            const printContent = content.replace(
+                /<style>/g, 
+                '<style>@media print { .no-print { display: none !important; } body { font-size: 12px; } .section { display: block !important; } }'
+            );
+            
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            // Wait for content to load then print
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 1000);
+        }
+
+        // Answer checking with detailed solutions
+        function checkAnswer(questionNum) {
+            const answer = document.getElementById(`answer${questionNum}`).value.trim();
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            
+            if (answer === '') {
+                feedback.className = 'p-3 rounded-lg bg-yellow-100 border border-yellow-300';
+                feedback.innerHTML = '<p class="text-yellow-800">⚠️ Silakan isi jawaban terlebih dahulu!</p>';
+                feedback.classList.remove('hidden');
+                return;
+            }
+            
+            let feedbackContent = '';
+            let feedbackClass = '';
+            let isCorrect = false;
+            
+            // Define correct answers and solutions
+            const solutions = {
+                1: { 
+                    answer: '2x + 5', 
+                    solution: '(g∘f)(x) = g(f(x)) = g(x+3) = 2(x+3)-1 = 2x+6-1 = 2x+5' 
+                },
+                2: { 
+                    answer: 'x² - 8x + 16', 
+                    solution: '(f∘g)(x) = f(g(x)) = f(x-4) = (x-4)² = x²-8x+16' 
+                },
+                3: { 
+                    answer: '14', 
+                    solution: 'g(5) = 5-1 = 4, kemudian f(4) = 3(4)+2 = 14' 
+                },
+                4: { 
+                    answer: '11', 
+                    solution: 'f(3) = 2(3) = 6, kemudian g(6) = 6+5 = 11' 
+                },
+                5: { 
+                    answer: '(f∘g)(x) = 4x² - 12x + 10, (g∘f)(x) = 2x² - 1', 
+                    solution: '(f∘g)(x) = f(2x-3) = (2x-3)²+1 = 4x²-12x+10; (g∘f)(x) = g(x²+1) = 2(x²+1)-3 = 2x²-1' 
+                },
+                6: { 
+                    answer: '1/(x+2), domain: x ≠ -2', 
+                    solution: '(f∘g)(x) = f(x+2) = 1/(x+2), domain: x+2 ≠ 0, jadi x ≠ -2' 
+                },
+                7: { 
+                    answer: '√(x²-4), domain: x ≤ -2 atau x ≥ 2', 
+                    solution: '(f∘g)(x) = f(x²-4) = √(x²-4), syarat: x²-4 ≥ 0, jadi x ≤ -2 atau x ≥ 2' 
+                },
+                8: { 
+                    answer: 'f(x) = x² + 2', 
+                    solution: 'Misalkan u = g(x) = 2x+1, maka x = (u-1)/2. Substitusi: f(u) = 4((u-1)/2)² + 4((u-1)/2) + 3 = u² + 2' 
+                },
+                9: { 
+                    answer: 'g(x) = x² - 1', 
+                    solution: 'Misalkan u = f(x) = x-3, maka x = u+3. Substitusi: g(u) = (u+3)² - 6(u+3) + 8 = u² - 1' 
+                },
+                10: { 
+                    answer: '(2x+1)/(3x+2), domain: x ≠ -2 dan x ≠ -2/3', 
+                    solution: '(f∘g)(x) = f(x/(x+2)) = (2(x/(x+2))+1)/(x/(x+2)-1) = (2x+1)/(3x+2)' 
+                },
+                11: { 
+                    answer: '√(x²-2x+2), domain: semua bilangan real', 
+                    solution: '(g∘f)(x) = g(x²-2x+3) = √((x²-2x+3)-1) = √(x²-2x+2). Karena x²-2x+2 = (x-1)²+1 ≥ 1 > 0, domain: ℝ' 
+                },
+                12: { 
+                    answer: '(2-x)/(x+2), domain: x ≠ -1 dan x ≠ -2', 
+                    solution: '(g∘f)(x) = g(1/(x+1)) = (2(1/(x+1))-1)/(1/(x+1)) = (2-x)/(x+2)' 
+                },
+                13: { 
+                    answer: '(g∘f)(x) = ∛(x³-1+1) = ∛(x³) = x', 
+                    solution: '(g∘f)(x) = g(f(x)) = g(x³-1) = ∛((x³-1)+1) = ∛(x³) = x' 
+                },
+                14: { 
+                    answer: 'g adalah invers dari f', 
+                    solution: 'Agar (f∘g)(x) = x, maka g harus merupakan fungsi invers dari f, yaitu g = f⁻¹' 
+                },
+                15: { 
+                    answer: '(2x-1)/(x+4), domain: x ≥ 1 dan x ≠ -4', 
+                    solution: 'h(x) = √(x-1), g(h(x)) = x-1+1 = x, f(g(h(x))) = f(x) = (2x-1)/(x+3). Domain: x ≥ 1 dan x+3 ≠ 0' 
+                }
+            };
+            
+            const correctAnswer = solutions[questionNum];
+            
+            // Check if answer contains key elements
+            if (checkAnswerMatch(answer, correctAnswer.answer)) {
+                isCorrect = true;
+                feedbackClass = 'p-3 rounded-lg bg-green-100 border border-green-300';
+                feedbackContent = `<p class="text-green-800">✅ <strong>Benar!</strong></p><p class="text-green-700 text-sm mt-2"><strong>Pembahasan:</strong> ${correctAnswer.solution}</p>`;
+            } else {
+                feedbackClass = 'p-3 rounded-lg bg-red-100 border border-red-300';
+                feedbackContent = `<p class="text-red-800">❌ Coba periksa kembali langkah-langkah Anda.</p><p class="text-red-700 text-sm mt-2"><strong>Hint:</strong> ${correctAnswer.solution}</p>`;
+            }
+            
+            // Update score tracking
+            if (!answeredQuestions.has(questionNum)) {
+                answeredQuestions.add(questionNum);
+                if (isCorrect) {
+                    correctAnswers++;
+                } else {
+                    incorrectAnswers++;
+                }
+                updateScoreDisplay();
+            }
+            
+            feedback.className = feedbackClass;
+            feedback.innerHTML = feedbackContent;
+            feedback.classList.remove('hidden');
+        }
+
+        function checkAnswerMatch(userAnswer, correctAnswer) {
+            // Remove spaces and convert to lowercase for comparison
+            const cleanUser = userAnswer.toLowerCase().replace(/\s/g, '').replace(/\*/g, '');
+            const cleanCorrect = correctAnswer.toLowerCase().replace(/\s/g, '').replace(/\*/g, '');
+            
+            // Check for key mathematical expressions
+            return cleanUser.includes(cleanCorrect.split(',')[0]) || 
+                   cleanCorrect.split(',').some(part => cleanUser.includes(part.trim()));
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('incorrectCount').textContent = incorrectAnswers;
+            const total = correctAnswers + incorrectAnswers;
+            const percentage = total > 0 ? Math.round((correctAnswers / total) * 100) : 0;
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+        }
+
+        // Rating system
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const topic = this.dataset.topic;
+                const rating = this.dataset.rating;
+                
+                // Reset all buttons for this topic
+                document.querySelectorAll(`[data-topic="${topic}"]`).forEach(b => {
+                    b.classList.remove('bg-purple-500', 'text-white');
+                    b.classList.add('border-purple-300', 'hover:bg-purple-100');
+                });
+                
+                // Highlight selected rating and all previous
+                for (let i = 1; i <= rating; i++) {
+                    const btn = document.querySelector(`[data-topic="${topic}"][data-rating="${i}"]`);
+                    btn.classList.remove('border-purple-300', 'hover:bg-purple-100');
+                    btn.classList.add('bg-purple-500', 'text-white');
+                }
+            });
+        });
+
+        function completeLKPD() {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('completion').classList.remove('hidden');
+            
+            // Update final scores
+            document.getElementById('finalCorrect').textContent = correctAnswers;
+            document.getElementById('finalIncorrect').textContent = incorrectAnswers;
+            const total = correctAnswers + incorrectAnswers;
+            const percentage = total > 0 ? Math.round((correctAnswers / total) * 100) : 0;
+            document.getElementById('finalPercentage').textContent = percentage + '%';
+        }
+
+        function resetLKPD() {
+            currentSection = 0;
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            answeredQuestions.clear();
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section0').classList.remove('hidden');
+            document.getElementById('completion').classList.add('hidden');
+            
+            // Reset all inputs
+            document.querySelectorAll('textarea, input[type="text"]').forEach(input => input.value = '');
+            document.querySelectorAll('.rating-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-500', 'text-white');
+                btn.classList.add('border-purple-300', 'hover:bg-purple-100');
+            });
+            
+            // Reset progress and navigation
+            updateProgress();
+            updateNavTabs();
+            updateScoreDisplay();
+            
+            // Hide all feedback
+            document.querySelectorAll('[id^="feedback"]').forEach(feedback => {
+                feedback.classList.add('hidden');
+            });
+        }
+
+        // Initialize
+        updateProgress();
+        updateNavTabs();
+        updateScoreDisplay();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963f5bb3d4f43ef7',t:'MTc1MzMxNzU0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
