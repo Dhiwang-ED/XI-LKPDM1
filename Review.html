@@ -1165,9 +1165,30 @@
                 return;
             }
 
-            const numericAnswer = parseFloat(userAnswer);
-            const correctAnswer = parseFloat(currentAnswers['penjumlahan']);
-            const isCorrect = Math.abs(numericAnswer - correctAnswer) < 0.001;
+            const jenisPenjumlahan = document.querySelector('input[name="jenisPenjumlahan"]:checked').value;
+            let isCorrect = false;
+
+            if (jenisPenjumlahan === 'nilai') {
+                // Untuk nilai numerik
+                const numericAnswer = parseFloat(userAnswer);
+                const correctAnswer = parseFloat(currentAnswers['penjumlahan']);
+                isCorrect = !isNaN(numericAnswer) && !isNaN(correctAnswer) && Math.abs(numericAnswer - correctAnswer) < 0.001;
+            } else {
+                // Untuk rumus, cek kesamaan string dengan normalisasi
+                const normalizeExpression = (expr) => {
+                    return expr.toLowerCase()
+                              .replace(/\s+/g, '')
+                              .replace(/\*/g, '')
+                              .replace(/\·/g, '');
+                };
+                
+                const normalizedUser = normalizeExpression(userAnswer);
+                const normalizedCorrect = normalizeExpression(currentAnswers['penjumlahan']);
+                
+                isCorrect = normalizedUser === normalizedCorrect ||
+                           userAnswer.includes(currentAnswers['penjumlahan']) ||
+                           currentAnswers['penjumlahan'].includes(userAnswer);
+            }
 
             if (isCorrect) {
                 hasilDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">🎉 Benar! Jawaban Anda tepat!</div>';
@@ -1348,9 +1369,30 @@
                 return;
             }
 
-            const numericAnswer = parseFloat(userAnswer);
-            const correctAnswer = parseFloat(currentAnswers['pengurangan']);
-            const isCorrect = Math.abs(numericAnswer - correctAnswer) < 0.001;
+            const jenisPengurangan = document.querySelector('input[name="jenisPengurangan"]:checked').value;
+            let isCorrect = false;
+
+            if (jenisPengurangan === 'nilai') {
+                // Untuk nilai numerik
+                const numericAnswer = parseFloat(userAnswer);
+                const correctAnswer = parseFloat(currentAnswers['pengurangan']);
+                isCorrect = !isNaN(numericAnswer) && !isNaN(correctAnswer) && Math.abs(numericAnswer - correctAnswer) < 0.001;
+            } else {
+                // Untuk rumus, cek kesamaan string dengan normalisasi
+                const normalizeExpression = (expr) => {
+                    return expr.toLowerCase()
+                              .replace(/\s+/g, '')
+                              .replace(/\*/g, '')
+                              .replace(/\·/g, '');
+                };
+                
+                const normalizedUser = normalizeExpression(userAnswer);
+                const normalizedCorrect = normalizeExpression(currentAnswers['pengurangan']);
+                
+                isCorrect = normalizedUser === normalizedCorrect ||
+                           userAnswer.includes(currentAnswers['pengurangan']) ||
+                           currentAnswers['pengurangan'].includes(userAnswer);
+            }
 
             if (isCorrect) {
                 hasilDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">🎉 Benar! Jawaban Anda tepat!</div>';
@@ -1539,9 +1581,31 @@
                 return;
             }
 
-            const numericAnswer = parseFloat(userAnswer);
-            const correctAnswer = parseFloat(currentAnswers['perkalian']);
-            const isCorrect = Math.abs(numericAnswer - correctAnswer) < 0.001;
+            const jenisPerkalian = document.querySelector('input[name="jenisPerkalian"]:checked').value;
+            let isCorrect = false;
+
+            if (jenisPerkalian === 'nilai') {
+                // Untuk nilai numerik
+                const numericAnswer = parseFloat(userAnswer);
+                const correctAnswer = parseFloat(currentAnswers['perkalian']);
+                isCorrect = !isNaN(numericAnswer) && !isNaN(correctAnswer) && Math.abs(numericAnswer - correctAnswer) < 0.001;
+            } else {
+                // Untuk rumus, cek kesamaan string dengan normalisasi
+                const normalizeExpression = (expr) => {
+                    return expr.toLowerCase()
+                              .replace(/\s+/g, '')
+                              .replace(/\*/g, '')
+                              .replace(/\·/g, '')
+                              .replace(/\\cdot/g, '');
+                };
+                
+                const normalizedUser = normalizeExpression(userAnswer);
+                const normalizedCorrect = normalizeExpression(currentAnswers['perkalian']);
+                
+                isCorrect = normalizedUser === normalizedCorrect ||
+                           userAnswer.includes(currentAnswers['perkalian']) ||
+                           currentAnswers['perkalian'].includes(userAnswer);
+            }
 
             if (isCorrect) {
                 hasilDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">🎉 Benar! Jawaban Anda tepat!</div>';
@@ -1726,9 +1790,31 @@
                 return;
             }
 
-            const numericAnswer = parseFloat(userAnswer);
-            const correctAnswer = parseFloat(currentAnswers['pembagian']);
-            const isCorrect = Math.abs(numericAnswer - correctAnswer) < 0.01;
+            const jenisPembagian = document.querySelector('input[name="jenisPembagian"]:checked').value;
+            let isCorrect = false;
+
+            if (jenisPembagian === 'nilai') {
+                // Untuk nilai numerik
+                const numericAnswer = parseFloat(userAnswer);
+                const correctAnswer = parseFloat(currentAnswers['pembagian']);
+                isCorrect = !isNaN(numericAnswer) && !isNaN(correctAnswer) && Math.abs(numericAnswer - correctAnswer) < 0.01;
+            } else {
+                // Untuk rumus, cek kesamaan string dengan normalisasi
+                const normalizeExpression = (expr) => {
+                    return expr.toLowerCase()
+                              .replace(/\s+/g, '')
+                              .replace(/\\frac/g, 'frac')
+                              .replace(/\{/g, '')
+                              .replace(/\}/g, '');
+                };
+                
+                const normalizedUser = normalizeExpression(userAnswer);
+                const normalizedCorrect = normalizeExpression(currentAnswers['pembagian']);
+                
+                isCorrect = normalizedUser === normalizedCorrect ||
+                           userAnswer.includes(currentAnswers['pembagian']) ||
+                           currentAnswers['pembagian'].includes(userAnswer);
+            }
 
             if (isCorrect) {
                 hasilDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">🎉 Benar! Jawaban Anda tepat!</div>';
@@ -2100,36 +2186,76 @@
 
         function generateLatihanKomposisi() {
             const fungsiType = document.getElementById('komposisiLatihanFungsi').value;
+            const jenisKomposisi = document.querySelector('input[name="jenisKomposisi"]:checked').value;
             const f = generateFunction(fungsiType);
             const g = generateFunction(fungsiType);
-            const x = Math.floor(Math.random() * 5) + 1;
-
-            const soal = `<p><strong>Soal:</strong></p><p>Diketahui:</p><p>$f(x) = ${f.expr}$</p><p>$g(x) = ${g.expr}$</p><p>Tentukan $(f \\circ g)(${x})$!</p>`;
             
-            const gVal = g.func(x);
-            const answer = f.func(gVal);
+            if (jenisKomposisi === 'nilai') {
+                const x = getValidX(f, g, fungsiType);
+                const soal = `<p><strong>Soal:</strong></p><p>Diketahui:</p><p>$f(x) = ${f.expr}$</p><p>$g(x) = ${g.expr}$</p><p>Tentukan $(f \\circ g)(${x})$!</p>`;
+                
+                const gVal = Math.round(g.func(x));
+                const answer = Math.round(f.func(gVal));
 
-            const solution = `
-                <div class="space-y-3">
-                    <p><strong>Langkah 1:</strong> Hitung $g(${x})$ terlebih dahulu</p>
-                    <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
-                    
-                    <p><strong>Langkah 2:</strong> Substitusi hasil $g(${x})$ ke dalam $f(x)$</p>
-                    <p>$(f \\circ g)(${x}) = f(g(${x})) = f(${gVal})$</p>
-                    
-                    <p><strong>Langkah 3:</strong> Hitung $f(${gVal})$</p>
-                    <p>$f(${gVal}) = ${formatSubstitution(f.expr, gVal)} = ${answer}$</p>
-                    
-                    <div class="bg-green-100 p-3 rounded-lg">
-                        <p><strong>Jawaban:</strong> $(f \\circ g)(${x}) = ${answer}$</p>
+                const solution = `
+                    <div class="space-y-3">
+                        <p><strong>Langkah 1:</strong> Hitung $g(${x})$ terlebih dahulu</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
+                        
+                        <p><strong>Langkah 2:</strong> Substitusi hasil $g(${x})$ ke dalam $f(x)$</p>
+                        <p>$(f \\circ g)(${x}) = f(g(${x})) = f(${gVal})$</p>
+                        
+                        <p><strong>Langkah 3:</strong> Hitung $f(${gVal})$</p>
+                        <p>$f(${gVal}) = ${formatSubstitution(f.expr, gVal)} = ${answer}$</p>
+                        
+                        <div class="bg-green-100 p-3 rounded-lg">
+                            <p><strong>Jawaban:</strong> $(f \\circ g)(${x}) = ${answer}$</p>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
 
-            currentAnswers['komposisi'] = answer.toString();
-            currentSolutions['komposisi'] = solution;
+                currentAnswers['komposisi'] = answer.toString();
+                currentSolutions['komposisi'] = solution;
 
-            document.getElementById('latihanKomposisi').innerHTML = soal;
+                document.getElementById('latihanKomposisi').innerHTML = soal;
+            } else {
+                const soal = `<p><strong>Soal:</strong></p><p>Diketahui:</p><p>$f(x) = ${f.expr}$</p><p>$g(x) = ${g.expr}$</p><p>Tentukan $(f \\circ g)(x)$!</p>`;
+                
+                // Buat rumus komposisi
+                let compositeExpr = f.expr.replace(/x/g, `(${g.expr})`);
+                
+                // Sederhanakan untuk kasus linear
+                if (fungsiType === 'linear') {
+                    const a1 = f.coeffs.a, b1 = f.coeffs.b;
+                    const a2 = g.coeffs.a, b2 = g.coeffs.b;
+                    const newA = a1 * a2;
+                    const newB = a1 * b2 + b1;
+                    compositeExpr = formatExpression(newA, newB, 0, 'linear');
+                }
+
+                const solution = `
+                    <div class="space-y-3">
+                        <p><strong>Langkah 1:</strong> Substitusi $g(x)$ ke dalam $f(x)$</p>
+                        <p>$(f \\circ g)(x) = f(g(x)) = f(${g.expr})$</p>
+                        
+                        <p><strong>Langkah 2:</strong> Ganti setiap $x$ dalam $f(x)$ dengan $g(x)$</p>
+                        <p>$(f \\circ g)(x) = ${f.expr.replace(/x/g, `(${g.expr})`)}$</p>
+                        
+                        <p><strong>Langkah 3:</strong> Sederhanakan</p>
+                        <p>$(f \\circ g)(x) = ${compositeExpr}$</p>
+                        
+                        <div class="bg-green-100 p-3 rounded-lg">
+                            <p><strong>Jawaban:</strong> $(f \\circ g)(x) = ${compositeExpr}$</p>
+                        </div>
+                    </div>
+                `;
+
+                currentAnswers['komposisi'] = compositeExpr;
+                currentSolutions['komposisi'] = solution;
+
+                document.getElementById('latihanKomposisi').innerHTML = soal;
+            }
+            
             document.getElementById('jawabanKomposisi').value = '';
             document.getElementById('hasilKomposisi').innerHTML = '';
             document.getElementById('pembahasanLatihanKomposisi').classList.add('hidden');
@@ -2148,9 +2274,35 @@
                 return;
             }
 
-            const numericAnswer = parseFloat(userAnswer);
-            const correctAnswer = parseFloat(currentAnswers['komposisi']);
-            const isCorrect = Math.abs(numericAnswer - correctAnswer) < 0.001;
+            const jenisKomposisi = document.querySelector('input[name="jenisKomposisi"]:checked').value;
+            let isCorrect = false;
+
+            if (jenisKomposisi === 'nilai') {
+                // Untuk nilai numerik
+                const numericAnswer = parseFloat(userAnswer);
+                const correctAnswer = parseFloat(currentAnswers['komposisi']);
+                isCorrect = !isNaN(numericAnswer) && !isNaN(correctAnswer) && Math.abs(numericAnswer - correctAnswer) < 0.001;
+            } else {
+                // Untuk rumus, cek kesamaan string dengan normalisasi
+                const normalizeExpression = (expr) => {
+                    return expr.toLowerCase()
+                              .replace(/\s+/g, '')
+                              .replace(/\*/g, '')
+                              .replace(/\·/g, '')
+                              .replace(/\(/g, '')
+                              .replace(/\)/g, '');
+                };
+                
+                const normalizedUser = normalizeExpression(userAnswer);
+                const normalizedCorrect = normalizeExpression(currentAnswers['komposisi']);
+                
+                // Cek berbagai kemungkinan format jawaban yang benar
+                isCorrect = normalizedUser === normalizedCorrect ||
+                           userAnswer.includes(currentAnswers['komposisi']) ||
+                           currentAnswers['komposisi'].includes(userAnswer) ||
+                           normalizedUser.includes(normalizedCorrect) ||
+                           normalizedCorrect.includes(normalizedUser);
+            }
 
             if (isCorrect) {
                 hasilDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">🎉 Benar! Jawaban Anda tepat!</div>';
@@ -2349,5 +2501,5 @@
         // Initialize
         showTopic('penjumlahan');
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9726f057c574c649',t:'MTc1NTc0NTg0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97271e1e37e39a10',t:'MTc1NTc0NzcxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
