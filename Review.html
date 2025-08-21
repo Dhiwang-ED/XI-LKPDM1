@@ -811,6 +811,15 @@
             }
         }
 
+        // Helper function untuk format substitusi dengan tanda perkalian yang benar
+        function formatSubstitution(expr, value) {
+            // Ganti x dengan nilai dan tambahkan tanda perkalian yang tepat
+            return expr.replace(/(\d+)x/g, `$1 \\cdot ${value}`)
+                      .replace(/^x/g, `${value}`)
+                      .replace(/([+-]\s*)x/g, `$1${value}`)
+                      .replace(/x/g, `${value}`);
+        }
+
         function showTopic(topic) {
             // Hide all sections
             document.querySelectorAll('.topic-section').forEach(s => s.classList.add('hidden'));
@@ -1012,10 +1021,10 @@
                 const pembahasan = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan penjumlahan</p>
                         <p>$(f + g)(${x}) = f(${x}) + g(${x}) = ${fVal} + ${gVal} = ${result}$</p>
@@ -1084,10 +1093,10 @@
                 const solution = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan penjumlahan</p>
                         <p>$(f + g)(${x}) = f(${x}) + g(${x}) = ${fVal} + ${gVal} = ${answer}$</p>
@@ -1195,10 +1204,10 @@
                 const pembahasan = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan pengurangan</p>
                         <p>$(f - g)(${x}) = f(${x}) - g(${x}) = ${fVal} - ${gVal} = ${result}$</p>
@@ -1267,10 +1276,10 @@
                 const solution = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan pengurangan</p>
                         <p>$(f - g)(${x}) = f(${x}) - g(${x}) = ${fVal} - ${gVal} = ${answer}$</p>
@@ -1378,10 +1387,10 @@
                 const pembahasan = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan perkalian</p>
                         <p>$(f \\cdot g)(${x}) = f(${x}) \\cdot g(${x}) = ${fVal} \\cdot ${gVal} = ${result}$</p>
@@ -1454,10 +1463,10 @@
                 const solution = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Lakukan perkalian</p>
                         <p>$(f \\cdot g)(${x}) = f(${x}) \\cdot g(${x}) = ${fVal} \\cdot ${gVal} = ${answer}$</p>
@@ -1575,10 +1584,10 @@
                 const pembahasan = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Periksa syarat $g(${x}) \\neq 0$</p>
                         <p>Karena $g(${x}) = ${gVal} \\neq 0$, maka pembagian dapat dilakukan.</p>
@@ -1649,10 +1658,10 @@
                 const solution = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung nilai $f(${x})$</p>
-                        <p>$f(${x}) = ${f.expr.replace(/x/g, `${x}`)} = ${fVal}$</p>
+                        <p>$f(${x}) = ${formatSubstitution(f.expr, x)} = ${fVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Hitung nilai $g(${x})$</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 3:</strong> Periksa syarat $g(${x}) \\neq 0$</p>
                         <p>Karena $g(${x}) = ${gVal} \\neq 0$, maka pembagian dapat dilakukan.</p>
@@ -1930,7 +1939,7 @@
             const pembahasan = `
                 <div class="space-y-3">
                     <p><strong>Langkah 1:</strong> Substitusi nilai $x = ${x}$ ke dalam fungsi</p>
-                    <p>$f(${x}) = ${f.expr.replace(/x/g, `(${x})`)}$</p>
+                    <p>$f(${x}) = ${formatSubstitution(f.expr, x)}$</p>
                     
                     <p><strong>Langkah 2:</strong> Hitung hasilnya</p>
                     <p>$f(${x}) = ${result}$</p>
@@ -1961,7 +1970,7 @@
             const solution = `
                 <div class="space-y-3">
                     <p><strong>Langkah 1:</strong> Substitusi nilai $x = ${x}$ ke dalam fungsi</p>
-                    <p>$f(${x}) = ${f.expr.replace(/x/g, `(${x})`)}$</p>
+                    <p>$f(${x}) = ${formatSubstitution(f.expr, x)}$</p>
                     
                     <p><strong>Langkah 2:</strong> Hitung hasilnya</p>
                     <p>$f(${x}) = ${answer}$</p>
@@ -2032,13 +2041,13 @@
                 const pembahasan = `
                     <div class="space-y-3">
                         <p><strong>Langkah 1:</strong> Hitung $g(${x})$ terlebih dahulu</p>
-                        <p>$g(${x}) = ${g.expr.replace(/x/g, `${x}`)} = ${gVal}$</p>
+                        <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                         
                         <p><strong>Langkah 2:</strong> Substitusi hasil $g(${x})$ ke dalam $f(x)$</p>
                         <p>$(f \\circ g)(${x}) = f(g(${x})) = f(${gVal})$</p>
                         
                         <p><strong>Langkah 3:</strong> Hitung $f(${gVal})$</p>
-                        <p>$f(${gVal}) = ${f.expr.replace(/x/g, `${gVal}`)} = ${result}$</p>
+                        <p>$f(${gVal}) = ${formatSubstitution(f.expr, gVal)} = ${result}$</p>
                         
                         <div class="bg-green-100 p-3 rounded-lg">
                             <p><strong>Jawaban:</strong> $(f \\circ g)(${x}) = ${result}$</p>
@@ -2103,13 +2112,13 @@
             const solution = `
                 <div class="space-y-3">
                     <p><strong>Langkah 1:</strong> Hitung $g(${x})$ terlebih dahulu</p>
-                    <p>$g(${x}) = ${g.expr.replace(/x/g, `(${x})`)} = ${gVal}$</p>
+                    <p>$g(${x}) = ${formatSubstitution(g.expr, x)} = ${gVal}$</p>
                     
                     <p><strong>Langkah 2:</strong> Substitusi hasil $g(${x})$ ke dalam $f(x)$</p>
                     <p>$(f \\circ g)(${x}) = f(g(${x})) = f(${gVal})$</p>
                     
                     <p><strong>Langkah 3:</strong> Hitung $f(${gVal})$</p>
-                    <p>$f(${gVal}) = ${f.expr.replace(/x/g, `(${gVal})`)} = ${answer}$</p>
+                    <p>$f(${gVal}) = ${formatSubstitution(f.expr, gVal)} = ${answer}$</p>
                     
                     <div class="bg-green-100 p-3 rounded-lg">
                         <p><strong>Jawaban:</strong> $(f \\circ g)(${x}) = ${answer}$</p>
@@ -2340,5 +2349,5 @@
         // Initialize
         showTopic('penjumlahan');
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9726dd0272509de3',t:'MTc1NTc0NTA1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9726f057c574c649',t:'MTc1NTc0NTg0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
