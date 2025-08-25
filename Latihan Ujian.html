@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Online Matematika - Fungsi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 2px;
+        }
+        .fraction-top {
+            border-bottom: 2px solid #000;
+            padding: 2px 5px;
+            min-width: 20px;
+        }
+        .fraction-bottom {
+            padding: 2px 5px;
+            min-width: 20px;
+        }
+        .contenteditable {
+            outline: none;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 2px;
+        }
+        .contenteditable:focus {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        .math-input {
+            min-height: 60px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .math-input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        .math-input[data-placeholder]:empty::before {
+            content: attr(data-placeholder);
+            color: #9ca3af;
+        }
+        .virtual-keyboard {
+            display: none;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-top: 8px;
+        }
+        .virtual-keyboard.show {
+            display: block;
+        }
+        .btn-math {
+            min-width: 50px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid #d1d5db;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-math:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .matching-item {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .matching-item:hover {
+            border-color: #3b82f6;
+        }
+        .matching-item.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .matching-item.matched-green {
+            border-color: #10b981;
+            background-color: #dcfce7;
+            border-width: 3px;
+        }
+        .matching-item.matched-blue {
+            border-color: #3b82f6;
+            background-color: #dbeafe;
+            border-width: 3px;
+        }
+        .matching-item.matched-orange {
+            border-color: #f97316;
+            background-color: #fed7aa;
+            border-width: 3px;
+        }
+        .matching-item.matched-purple {
+            border-color: #8b5cf6;
+            background-color: #ede9fe;
+            border-width: 3px;
+        }
+        .matching-item.matched-pink {
+            border-color: #ec4899;
+            background-color: #fce7f3;
+            border-width: 3px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Ujian Online Matematika - Fungsi</h1>
+                <p class="text-gray-600">Total Soal: 30 (A: 10, B: 5, C: 5, D: 5, E: 5)</p>
+                
+                <!-- Identity Section -->
+                <div class="mt-6 bg-gray-100 p-6 rounded-lg" id="identitySection">
+                    <h3 class="text-lg font-semibold mb-4">Identitas Peserta</h3>
+                    <div class="max-w-md mx-auto">
+                        <label class="block text-left text-sm font-medium text-gray-700 mb-2">Nama Lengkap:</label>
+                        <input type="text" id="studentName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    <button type="button" id="startExamBtn" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+                        Mulai Ujian
+                    </button>
+                </div>
+                
+                <!-- Exam Status -->
+                <div class="mt-4 bg-blue-100 p-4 rounded-lg hidden" id="examStatus">
+                    <div class="text-lg font-semibold text-blue-800">
+                        Status: <span id="statusText">Ujian Dimulai</span> | 
+                        Waktu Mulai: <span id="startTime">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <form id="examForm" class="hidden">
+                <!-- BAGIAN A: PILIHAN GANDA (10 soal) -->
+                <div class="mb-8 p-6 bg-blue-50 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-blue-800">BAGIAN A: PILIHAN GANDA</h2>
+                    
+                    <!-- Soal 1 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">1. Diketahui f(x) = 2x + 3 dan g(x) = x - 1. Tentukan (f+g)(x).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q1" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. 3x + 2</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q1" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. x + 4</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q1" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. 3x - 1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q1" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. x + 2</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">2. Jika f(x) = x² dan g(x) = 2x, maka (f-g)(x) adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q2" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. x² - 2x</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q2" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. 2x - x²</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q2" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. x² + 2x</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q2" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. 2x² - x</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 3 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">3. Jika f(x) = 3x dan g(x) = x+4, tentukan (f·g)(x).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q3" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. 3x + 12</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q3" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. 3x² + 12x</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q3" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. x² + 7x + 12</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q3" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. 3x² + 4</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 4 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">4. Diketahui f(x) = x+2, g(x) = <span class="fraction"><div class="fraction-top">1</div><div class="fraction-bottom">x</div></span>. Tentukan (f/g)(x).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q4" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. <span class="fraction"><div class="fraction-top">x+2</div><div class="fraction-bottom">x</div></span></span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q4" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. <span class="fraction"><div class="fraction-top">x</div><div class="fraction-bottom">x+2</div></span></span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q4" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. <span class="fraction"><div class="fraction-top">1</div><div class="fraction-bottom">x(x+2)</div></span></span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q4" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. x(x+2)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 5 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">5. Diketahui fungsi f(x) = x². Tentukan f(3).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q5" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. 6</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q5" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. 9</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q5" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. 12</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q5" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. 27</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 6 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">6. Diketahui f(x) = 2x + 1, tentukan nilai f(-2).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q6" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. -3</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q6" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. -1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q6" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. -5</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q6" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. 3</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 7 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">7. Jika f(x) = x² + 1 dan g(x) = 2x, tentukan (f ∘ g)(x).</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q7" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. 2x² + 1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q7" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. 4x² + 1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q7" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. x² + 2x</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q7" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. 2x² + 2</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 8 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">8. Diketahui f(x) = √x. Domain fungsi tersebut adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q8" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. Semua bilangan real</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q8" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. Bilangan bulat</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q8" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. Bilangan real x ≥ 0</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q8" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. Bilangan real x ≤ 0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 9 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">9. Jika f(x) = 1/(x-2), maka domain f(x) adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q9" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. Semua real kecuali 0</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q9" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. Semua real kecuali 2</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q9" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. Semua real positif</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q9" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. Semua real negatif</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 10 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">10. Jika f(x) = x², maka range dari fungsi tersebut adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q10" value="a" class="w-4 h-4 text-blue-600">
+                                <span>a. Semua bilangan real</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q10" value="b" class="w-4 h-4 text-blue-600">
+                                <span>b. Bilangan real x ≥ 0</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q10" value="c" class="w-4 h-4 text-blue-600">
+                                <span>c. Bilangan bulat positif</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="radio" name="q10" value="d" class="w-4 h-4 text-blue-600">
+                                <span>d. Semua bilangan genap</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAGIAN B: PILIHAN GANDA KOMPLEKS (5 soal) -->
+                <div class="mb-8 p-6 bg-green-50 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-green-800">BAGIAN B: PILIHAN GANDA KOMPLEKS</h2>
+                    
+                    <!-- Soal 11 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">11. Jika f(x) = 2x+1, maka nilai berikut yang termasuk ke dalam kodomain adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q11" value="a" class="w-4 h-4 text-green-600">
+                                <span>a. 1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q11" value="b" class="w-4 h-4 text-green-600">
+                                <span>b. 3</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q11" value="c" class="w-4 h-4 text-green-600">
+                                <span>c. 5</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q11" value="d" class="w-4 h-4 text-green-600">
+                                <span>d. 7</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 12 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">12. Diketahui f(x) = x² - 4. Tentukan range fungsi tersebut.</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q12" value="a" class="w-4 h-4 text-green-600">
+                                <span>a. [-4, ∞)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q12" value="b" class="w-4 h-4 text-green-600">
+                                <span>b. (-∞, -4]</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q12" value="c" class="w-4 h-4 text-green-600">
+                                <span>c. Semua real</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q12" value="d" class="w-4 h-4 text-green-600">
+                                <span>d. [-2, 2]</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 13 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">13. Diketahui f(x) = 2x, g(x) = x+3. Bentuk (f+g)(2) adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q13" value="a" class="w-4 h-4 text-green-600">
+                                <span>a. 4</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q13" value="b" class="w-4 h-4 text-green-600">
+                                <span>b. 5</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q13" value="c" class="w-4 h-4 text-green-600">
+                                <span>c. 7</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q13" value="d" class="w-4 h-4 text-green-600">
+                                <span>d. 9</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 14 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">14. Jika f(x) = √(x+1), maka domain fungsi adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q14" value="a" class="w-4 h-4 text-green-600">
+                                <span>a. x ≥ -1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q14" value="b" class="w-4 h-4 text-green-600">
+                                <span>b. x > -1</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q14" value="c" class="w-4 h-4 text-green-600">
+                                <span>c. Semua real</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q14" value="d" class="w-4 h-4 text-green-600">
+                                <span>d. x ≤ -1</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 15 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">15. Diketahui f(x) = 3x+1, g(x) = x². Nilai (f ∘ g)(2) adalah …</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q15" value="a" class="w-4 h-4 text-green-600">
+                                <span>a. 7</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q15" value="b" class="w-4 h-4 text-green-600">
+                                <span>b. 13</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q15" value="c" class="w-4 h-4 text-green-600">
+                                <span>c. 19</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <input type="checkbox" name="q15" value="d" class="w-4 h-4 text-green-600">
+                                <span>d. 25</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAGIAN C: MENJODOHKAN (5 soal) -->
+                <div class="mb-8 p-6 bg-orange-50 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-orange-800">BAGIAN C: MENJODOHKAN</h2>
+                    <p class="mb-4 text-lg">Pasangkan soal di kolom kiri dengan jawabannya di kolom kanan!</p>
+                    
+                    <div class="matching-container relative" id="matchingContainer">
+                        <div class="space-y-3">
+                            <div class="text-sm font-semibold text-gray-600 mb-2">Soal:</div>
+                            <div class="matching-item" data-type="left" data-id="16" data-color="green">
+                                16. f(x) = x+1, g(x) = 2x, tentukan (f+g)(x)
+                            </div>
+                            <div class="matching-item" data-type="left" data-id="17" data-color="blue">
+                                17. f(x) = x², g(x) = 3x, tentukan (f·g)(x)
+                            </div>
+                            <div class="matching-item" data-type="left" data-id="18" data-color="orange">
+                                18. f(x) = x² + 1, tentukan domain
+                            </div>
+                            <div class="matching-item" data-type="left" data-id="19" data-color="purple">
+                                19. f(x) = 1/(x+2), tentukan domain
+                            </div>
+                            <div class="matching-item" data-type="left" data-id="20" data-color="pink">
+                                20. f(x) = √x, tentukan range
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="text-sm font-semibold text-gray-600 mb-2">Jawaban:</div>
+                            <div class="matching-item" data-type="right" data-id="A">
+                                A. 3x³
+                            </div>
+                            <div class="matching-item" data-type="right" data-id="B">
+                                B. 3x + 1
+                            </div>
+                            <div class="matching-item" data-type="right" data-id="C">
+                                C. Semua real kecuali -2
+                            </div>
+                            <div class="matching-item" data-type="right" data-id="D">
+                                D. Semua real x ≥ 0
+                            </div>
+                            <div class="matching-item" data-type="right" data-id="E">
+                                E. Semua bilangan real
+                            </div>
+                        </div>
+                        <svg class="absolute top-0 left-0 w-full h-full pointer-events-none" id="connectionSvg">
+                        </svg>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button type="button" id="resetMatching" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            Reset Semua Jawaban
+                        </button>
+                    </div>
+                    <input type="hidden" name="matching" id="matchingResult">
+                </div>
+
+                <!-- BAGIAN D: ISIAN SINGKAT (5 soal) -->
+                <div class="mb-8 p-6 bg-purple-50 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-purple-800">BAGIAN D: ISIAN SINGKAT</h2>
+                    
+                    <!-- Soal 21 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">21. Diketahui f(x) = 2x+3, tentukan f(4).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Ketik jawaban Anda di sini..." id="mathInput21"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard21')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard21">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-5 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="·">·</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="÷">÷</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 22 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">22. Jika f(x) = x²-1, tentukan f(-2).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Ketik jawaban Anda di sini..." id="mathInput22"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard22')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard22">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-5 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="·">·</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="÷">÷</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 23 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">23. Diketahui f(x) = 3x, g(x) = x+1. Tentukan (f ∘ g)(2).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Ketik jawaban Anda di sini..." id="mathInput23"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard23')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard23">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-5 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="·">·</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="÷">÷</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="operator" data-value="∘">∘</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="g(x)">g(x)</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 24 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">24. Diketahui f(x) = √(x+4). Tuliskan domainnya.</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Ketik jawaban Anda di sini..." id="mathInput24"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard24')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard24">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="≥">≥</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="≤">≤</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-purple-100 hover:bg-purple-200 rounded" data-function="sqrt">√x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 25 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">25. Jika f(x) = 1/x, tuliskan nilai f(5).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Ketik jawaban Anda di sini..." id="mathInput25"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard25')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard25">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-orange-100 hover:bg-orange-200 rounded" data-function="fraction">a/b</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAGIAN E: URAIAN (5 soal) -->
+                <div class="mb-8 p-6 bg-pink-50 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 text-pink-800">BAGIAN E: URAIAN</h2>
+                    
+                    <!-- Soal 26 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">26. Diketahui f(x) = x+2, g(x) = x². Tentukan (f·g)(x) dan (g·f)(x). Apakah sama hasilnya?</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Tulis jawaban lengkap Anda di sini..." id="mathInput26"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard26')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard26">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-green-100 hover:bg-green-200 rounded" data-function="power">x²</button>
+                                <button type="button" class="btn-math bg-green-100 hover:bg-green-200 rounded" data-function="custom-power">x^n</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="g(x)">g(x)</button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-2">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="f">f</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="g">g</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="·">·</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 27 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">27. Diketahui f(x) = 2x+1, g(x) = x². Tentukan (f ∘ g)(x) dan (g ∘ f)(x).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Tulis jawaban lengkap Anda di sini..." id="mathInput27"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard27')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard27">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-green-100 hover:bg-green-200 rounded" data-function="power">x²</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="operator" data-value="∘">∘</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="g(x)">g(x)</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="composition" data-value="f(g(x))">f(g(x))</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="composition" data-value="g(f(x))">g(f(x))</button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-2">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="f">f</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="g">g</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                                <button type="button" class="btn-math bg-green-100 hover:bg-green-200 rounded" data-function="custom-power">x^n</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 28 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">28. Tentukan domain dan range dari fungsi f(x) = 1/(x-3).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Tulis jawaban lengkap Anda di sini..." id="mathInput28"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard28')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard28">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="≠">≠</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-orange-100 hover:bg-orange-200 rounded" data-function="fraction">a/b</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="∞">∞</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="∪">∪</button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-2">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="[">[</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="]">]</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=",">,</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 29 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">29. Diketahui f(x) = √x, tentukan nilai f(0), f(4), f(9). Jelaskan alasannya.</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Tulis jawaban lengkap Anda di sini..." id="mathInput29"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard29')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard29">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-purple-100 hover:bg-purple-200 rounded" data-function="sqrt">√x</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(0)">f(0)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(4)">f(4)</button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-2">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="f">f</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=",">,</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(9)">f(9)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 30 -->
+                    <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3">30. Diketahui f(x) = 2x, g(x) = x+5. Tentukan (f+g)(x), (f-g)(x), dan (f ∘ g)(x).</h3>
+                        <div class="math-input" contenteditable="true" data-placeholder="Tulis jawaban lengkap Anda di sini..." id="mathInput30"></div>
+                        <button type="button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="toggleKeyboard('keyboard30')">
+                            📱 Tampilkan Keyboard Matematika
+                        </button>
+                        <div class="virtual-keyboard" id="keyboard30">
+                            <div class="grid grid-cols-6 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="1">1</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="2">2</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="3">3</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="4">4</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="5">5</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="6">6</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="7">7</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="8">8</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="9">9</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="number" data-value="0">0</button>
+                                <button type="button" class="btn-math bg-red-100 hover:bg-red-200 rounded" data-function="backspace">⌫</button>
+                                <button type="button" class="btn-math bg-yellow-100 hover:bg-yellow-200 rounded" data-function="clear">C</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="+">+</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="-">-</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="×">×</button>
+                                <button type="button" class="btn-math bg-blue-100 hover:bg-blue-200 rounded" data-function="operator" data-value="=">=</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="operator" data-value="∘">∘</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="f(x)">f(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="function" data-value="g(x)">g(x)</button>
+                                <button type="button" class="btn-math bg-indigo-100 hover:bg-indigo-200 rounded" data-function="composition" data-value="f(g(x))">f(g(x))</button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-2">
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="x">x</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="f">f</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="letter" data-value="g">g</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value="(">(</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=")">)</button>
+                                <button type="button" class="btn-math bg-gray-100 hover:bg-gray-200 rounded" data-function="operator" data-value=",">,</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+                        Selesai Ujian
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Exam timing functionality
+        let examStartTime = null;
+        let examEndTime = null;
+        
+        // Start exam functionality
+        document.getElementById('startExamBtn').addEventListener('click', function() {
+            const studentName = document.getElementById('studentName').value.trim();
+            
+            if (!studentName) {
+                alert('Silakan masukkan nama lengkap Anda terlebih dahulu!');
+                return;
+            }
+            
+            examStartTime = new Date();
+            document.getElementById('startTime').textContent = examStartTime.toLocaleTimeString('id-ID');
+            
+            // Hide identity section and show exam
+            document.getElementById('identitySection').classList.add('hidden');
+            document.getElementById('examStatus').classList.remove('hidden');
+            document.getElementById('examForm').classList.remove('hidden');
+            
+            // Scroll to exam form
+            document.getElementById('examForm').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Virtual keyboard functionality
+        let currentInput = null;
+
+        function toggleKeyboard(keyboardId) {
+            const keyboard = document.getElementById(keyboardId);
+            const inputId = keyboardId.replace('keyboard', 'mathInput');
+            currentInput = document.getElementById(inputId);
+            
+            keyboard.classList.toggle('show');
+            
+            if (keyboard.classList.contains('show')) {
+                currentInput.focus();
+            }
+        }
+
+        // Math input functions
+        function insertHTMLAtCursor(mathInput, html) {
+            mathInput.focus();
+            
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                const fragment = document.createDocumentFragment();
+                while (div.firstChild) {
+                    fragment.appendChild(div.firstChild);
+                }
+                
+                range.insertNode(fragment);
+                
+                const editableElement = fragment.querySelector('.contenteditable');
+                if (editableElement) {
+                    const newRange = document.createRange();
+                    newRange.selectNodeContents(editableElement);
+                    newRange.collapse(false);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                } else {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            } else {
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                while (div.firstChild) {
+                    mathInput.appendChild(div.firstChild);
+                }
+            }
+            
+            mathInput.focus();
+        }
+
+        function insertTextAtCursor(mathInput, text) {
+            mathInput.focus();
+            
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(text));
+                range.collapse(false);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } else {
+                mathInput.appendChild(document.createTextNode(text));
+            }
+        }
+
+        // Keyboard event handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-math')) {
+                if (!currentInput) return;
+                
+                const func = e.target.getAttribute('data-function');
+                const value = e.target.getAttribute('data-value');
+                
+                switch(func) {
+                    case 'number':
+                    case 'operator':
+                    case 'letter':
+                        insertTextAtCursor(currentInput, value);
+                        break;
+                    case 'fraction':
+                        insertHTMLAtCursor(currentInput, 
+                            '<span class="fraction">' +
+                                '<div class="fraction-top contenteditable" contenteditable="true">a</div>' +
+                                '<div class="fraction-bottom contenteditable" contenteditable="true">b</div>' +
+                            '</span>&nbsp;');
+                        break;
+                    case 'power':
+                        insertHTMLAtCursor(currentInput, 'x<sup contenteditable="true">2</sup>');
+                        break;
+                    case 'custom-power':
+                        insertHTMLAtCursor(currentInput, '<span contenteditable="true">x</span><sup contenteditable="true">n</sup>');
+                        break;
+                    case 'sqrt':
+                        insertHTMLAtCursor(currentInput, '√<span contenteditable="true" style="text-decoration: overline;">x</span>');
+                        break;
+                    case 'function':
+                    case 'composition':
+                        insertTextAtCursor(currentInput, value);
+                        break;
+                    case 'backspace':
+                        const selection = window.getSelection();
+                        if (selection.rangeCount > 0) {
+                            const range = selection.getRangeAt(0);
+                            if (range.collapsed) {
+                                range.setStart(range.startContainer, Math.max(0, range.startOffset - 1));
+                            }
+                            range.deleteContents();
+                        }
+                        break;
+                    case 'clear':
+                        currentInput.innerHTML = '';
+                        break;
+                }
+            }
+        });
+
+        // Matching functionality
+        let selectedLeft = null;
+        let selectedRight = null;
+        let matches = {};
+
+        function drawConnection(leftElement, rightElement, color) {
+            const svg = document.getElementById('connectionSvg');
+            const container = document.getElementById('matchingContainer');
+            const containerRect = container.getBoundingClientRect();
+            const leftRect = leftElement.getBoundingClientRect();
+            const rightRect = rightElement.getBoundingClientRect();
+            
+            const x1 = leftRect.right - containerRect.left;
+            const y1 = leftRect.top + leftRect.height / 2 - containerRect.top;
+            const x2 = rightRect.left - containerRect.left;
+            const y2 = rightRect.top + rightRect.height / 2 - containerRect.top;
+            
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.setAttribute('stroke', getColorHex(color));
+            line.setAttribute('stroke-width', '3');
+            line.setAttribute('data-connection', `${leftElement.getAttribute('data-id')}-${rightElement.getAttribute('data-id')}`);
+            
+            svg.appendChild(line);
+        }
+
+        function getColorHex(color) {
+            switch(color) {
+                case 'green': return '#10b981';
+                case 'blue': return '#3b82f6';
+                case 'orange': return '#f97316';
+                case 'purple': return '#8b5cf6';
+                case 'pink': return '#ec4899';
+                default: return '#3b82f6';
+            }
+        }
+
+        function clearConnections() {
+            const svg = document.getElementById('connectionSvg');
+            svg.innerHTML = '';
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('matching-item')) {
+                const type = e.target.getAttribute('data-type');
+                const id = e.target.getAttribute('data-id');
+                
+                if (type === 'left') {
+                    if (selectedLeft) {
+                        selectedLeft.classList.remove('selected');
+                    }
+                    selectedLeft = e.target;
+                    e.target.classList.add('selected');
+                } else if (type === 'right') {
+                    if (selectedRight) {
+                        selectedRight.classList.remove('selected');
+                    }
+                    selectedRight = e.target;
+                    e.target.classList.add('selected');
+                }
+                
+                if (selectedLeft && selectedRight) {
+                    const leftId = selectedLeft.getAttribute('data-id');
+                    const rightId = selectedRight.getAttribute('data-id');
+                    const color = selectedLeft.getAttribute('data-color');
+                    
+                    matches[leftId] = rightId;
+                    
+                    selectedLeft.classList.remove('selected');
+                    selectedRight.classList.remove('selected');
+                    selectedLeft.classList.add(`matched-${color}`);
+                    selectedRight.classList.add(`matched-${color}`);
+                    
+                    drawConnection(selectedLeft, selectedRight, color);
+                    
+                    selectedLeft = null;
+                    selectedRight = null;
+                    
+                    document.getElementById('matchingResult').value = JSON.stringify(matches);
+                }
+            }
+        });
+
+        // Reset matching functionality
+        document.getElementById('resetMatching').addEventListener('click', function() {
+            matches = {};
+            selectedLeft = null;
+            selectedRight = null;
+            
+            const matchingItems = document.querySelectorAll('.matching-item');
+            matchingItems.forEach(item => {
+                item.classList.remove('selected', 'matched-green', 'matched-blue', 'matched-orange', 'matched-purple', 'matched-pink');
+            });
+            
+            clearConnections();
+            document.getElementById('matchingResult').value = '';
+        });
+
+        // Form submission
+        document.getElementById('examForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            examEndTime = new Date();
+            const duration = Math.round((examEndTime - examStartTime) / 1000 / 60);
+            
+            // Collect all answers
+            const studentName = document.getElementById('studentName').value;
+            const answers = {
+                nama: studentName,
+                waktuMulai: examStartTime.toLocaleString('id-ID'),
+                waktuSelesai: examEndTime.toLocaleString('id-ID'),
+                durasiPengerjaan: duration + ' menit'
+            };
+            
+            // Collect multiple choice answers (1-10)
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                answers[`q${i}`] = selected ? selected.value : 'Tidak dijawab';
+            }
+            
+            // Collect complex multiple choice answers (11-15)
+            for (let i = 11; i <= 15; i++) {
+                const selected = Array.from(document.querySelectorAll(`input[name="q${i}"]:checked`));
+                answers[`q${i}`] = selected.length > 0 ? selected.map(cb => cb.value).join(', ') : 'Tidak dijawab';
+            }
+            
+            // Collect matching answers
+            answers.matching = document.getElementById('matchingResult').value || 'Tidak dijawab';
+            
+            // Collect short answer questions (21-25)
+            for (let i = 21; i <= 25; i++) {
+                const input = document.getElementById(`mathInput${i}`);
+                answers[`q${i}`] = input ? (input.innerHTML || 'Tidak dijawab') : 'Tidak dijawab';
+            }
+            
+            // Collect essay questions (26-30)
+            for (let i = 26; i <= 30; i++) {
+                const input = document.getElementById(`mathInput${i}`);
+                answers[`q${i}`] = input ? (input.innerHTML || 'Tidak dijawab') : 'Tidak dijawab';
+            }
+            
+            showExamResults(answers);
+        });
+        
+        function showExamResults(answers) {
+            const resultWindow = window.open('', '_blank', 'width=900,height=700');
+            
+            let resultHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Hasil Ujian - ${answers.nama}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                        .header { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+                        .section { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+                        .answer { background: #e8f5e8; padding: 8px; margin: 3px 0; border-radius: 3px; }
+                        .fraction { display: inline-block; text-align: center; vertical-align: middle; margin: 0 2px; }
+                        .fraction-top { border-bottom: 2px solid #000; padding: 2px 5px; min-width: 20px; }
+                        .fraction-bottom { padding: 2px 5px; min-width: 20px; }
+                        @media print { body { margin: 0; } }
+                        .section-title { color: #2563eb; font-weight: bold; margin-bottom: 10px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>HASIL UJIAN MATEMATIKA - FUNGSI</h1>
+                        <p><strong>Nama:</strong> ${answers.nama}</p>
+                        <p><strong>Waktu Mulai:</strong> ${answers.waktuMulai}</p>
+                        <p><strong>Waktu Selesai:</strong> ${answers.waktuSelesai}</p>
+                        <p><strong>Durasi Pengerjaan:</strong> ${answers.durasiPengerjaan}</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">BAGIAN A: PILIHAN GANDA (1-10)</div>`;
+            
+            for (let i = 1; i <= 10; i++) {
+                resultHTML += `<div class="answer"><strong>Soal ${i}:</strong> ${answers[`q${i}`]}</div>`;
+            }
+            
+            resultHTML += `</div>
+                    
+                    <div class="section">
+                        <div class="section-title">BAGIAN B: PILIHAN GANDA KOMPLEKS (11-15)</div>`;
+            
+            for (let i = 11; i <= 15; i++) {
+                resultHTML += `<div class="answer"><strong>Soal ${i}:</strong> ${answers[`q${i}`]}</div>`;
+            }
+            
+            resultHTML += `</div>
+                    
+                    <div class="section">
+                        <div class="section-title">BAGIAN C: MENJODOHKAN (16-20)</div>
+                        <div class="answer"><strong>Jawaban:</strong> ${answers.matching}</div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">BAGIAN D: ISIAN SINGKAT (21-25)</div>`;
+            
+            for (let i = 21; i <= 25; i++) {
+                resultHTML += `<div class="answer"><strong>Soal ${i}:</strong> ${answers[`q${i}`]}</div>`;
+            }
+            
+            resultHTML += `</div>
+                    
+                    <div class="section">
+                        <div class="section-title">BAGIAN E: URAIAN (26-30)</div>`;
+            
+            for (let i = 26; i <= 30; i++) {
+                resultHTML += `<div class="answer"><strong>Soal ${i}:</strong> ${answers[`q${i}`]}</div>`;
+            }
+            
+            resultHTML += `</div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button onclick="window.print()" style="background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Cetak Hasil</button>
+                    </div>
+                </body>
+                </html>`;
+            
+            resultWindow.document.write(resultHTML);
+            resultWindow.document.close();
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'974841d495c1ea77',t:'MTc1NjA5NTIxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
